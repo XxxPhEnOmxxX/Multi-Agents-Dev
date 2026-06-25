@@ -1,10 +1,32 @@
 # Mapeamento de agents e skills
 
+## Regra central de orquestração
+
+O Claude principal é o orquestrador soberano do fluxo de desenvolvimento.
+
+Os agents especializados executam, analisam ou revisam dentro de seus papéis, mas não decidem sozinhos quando usar o Codex.
+
+A skill `delegate-to-codex` deve ser pré-carregada somente no agent `development-orchestrator`.
+
 ## Regra para `delegate-to-codex`
 
-A skill `delegate-to-codex` deve ser pré-carregada nos agents que se beneficiam de uma segunda análise independente do Codex em tarefas de código, diff, bug, teste, arquitetura ou segurança.
+Somente o `development-orchestrator` pode decidir usar `delegate-to-codex`.
 
-Ela não deve ser pré-carregada em agents de gestão/produto, porque esses papéis trabalham mais com escopo, prioridade, comunicação e coordenação. Neles, a skill pode ser chamada manualmente apenas quando houver uma necessidade técnica concreta.
+Agents especializados podem recomendar uma consulta ao Codex, mas devem justificar:
+
+- qual risco existe;
+- qual pergunta seria feita;
+- quais arquivos ou diffs precisam ser analisados;
+- qual resultado esperado;
+- por que uma segunda opinião independente é útil.
+
+Não usar Codex para documentação simples, testes comuns, pequenas alterações de código, ajustes de texto, renomeações simples, refatorações triviais ou tarefas que um agent resolve com segurança.
+
+Usar Codex apenas quando houver ganho real de segunda opinião independente, como diff arriscado, mudança crítica, bug difícil, falha de teste não óbvia, refatoração grande ou decisão técnica de alto impacto.
+
+## development-orchestrator
+- orchestrator-codex-gate
+- delegate-to-codex
 
 ## backend-specialist
 - api-design
@@ -12,7 +34,6 @@ Ela não deve ser pré-carregada em agents de gestão/produto, porque esses pap�
 - backend-architecture
 - security-audit
 - test-strategy
-- delegate-to-codex
 
 ## frontend-specialist
 - frontend-ui-review
@@ -20,7 +41,6 @@ Ela não deve ser pré-carregada em agents de gestão/produto, porque esses pap�
 - responsive-design
 - accessibility-review
 - test-strategy
-- delegate-to-codex
 
 ## devops-engineer
 - devops-ci-cd
@@ -28,7 +48,7 @@ Ela não deve ser pré-carregada em agents de gestão/produto, porque esses pap�
 - cloud-architecture
 - observability-review
 
-Uso recomendado de `delegate-to-codex`: sob demanda, para revisão cruzada de pipeline, Dockerfile, compose, infraestrutura como código ou mudança de deploy com risco real.
+Uso de Codex: não pré-carregar. Pode sugerir ao orquestrador quando houver risco técnico real.
 
 ## security-engineer
 - security-audit
@@ -36,7 +56,8 @@ Uso recomendado de `delegate-to-codex`: sob demanda, para revisão cruzada de pi
 - compliance-review
 - secure-code-review
 - dependency-audit
-- delegate-to-codex
+
+Uso de Codex: não pré-carregar. Pode sugerir ao orquestrador quando uma revisão independente reduzir risco.
 
 ## corporate-cto
 - architecture-review
@@ -45,7 +66,7 @@ Uso recomendado de `delegate-to-codex`: sob demanda, para revisão cruzada de pi
 - build-vs-buy
 - engineering-strategy
 
-Uso recomendado de `delegate-to-codex`: não pré-carregar. Chamar manualmente apenas quando uma decisão estratégica depender de validação técnica em código ou arquitetura concreta.
+Uso de Codex: não pré-carregar.
 
 ## engineering-manager
 - engineering-planning
@@ -53,7 +74,7 @@ Uso recomendado de `delegate-to-codex`: não pré-carregar. Chamar manualmente a
 - delivery-risk-review
 - team-process-review
 
-Uso recomendado de `delegate-to-codex`: não pré-carregar. Chamar manualmente apenas para avaliar risco técnico de uma entrega específica.
+Uso de Codex: não pré-carregar.
 
 ## software-architect
 - system-design
@@ -61,14 +82,16 @@ Uso recomendado de `delegate-to-codex`: não pré-carregar. Chamar manualmente a
 - design-pattern-review
 - integration-design
 - scalability-review
-- delegate-to-codex
+
+Uso de Codex: não pré-carregar. Pode sugerir ao orquestrador para decisões arquiteturais complexas.
 
 ## qa-engineer
 - test-strategy
 - test-automation
 - regression-plan
 - acceptance-criteria-review
-- delegate-to-codex
+
+Uso de Codex: não pré-carregar. Pode sugerir ao orquestrador para falhas de teste difíceis ou regressões não óbvias.
 
 ## product-owner
 - requirements-analysis
@@ -76,7 +99,7 @@ Uso recomendado de `delegate-to-codex`: não pré-carregar. Chamar manualmente a
 - acceptance-criteria-review
 - stakeholder-communication
 
-Uso recomendado de `delegate-to-codex`: não pré-carregar. Chamar manualmente apenas quando o requisito depender de investigação técnica no código.
+Uso de Codex: não pré-carregar.
 
 ## project-manager
 - project-planning
@@ -84,7 +107,7 @@ Uso recomendado de `delegate-to-codex`: não pré-carregar. Chamar manualmente a
 - resource-planning
 - status-reporting
 
-Uso recomendado de `delegate-to-codex`: não pré-carregar. Chamar manualmente apenas quando houver bloqueio técnico que precise de análise independente.
+Uso de Codex: não pré-carregar.
 
 ## senior-fullstack-developer
 - fullstack-feature-delivery
@@ -92,7 +115,8 @@ Uso recomendado de `delegate-to-codex`: não pré-carregar. Chamar manualmente a
 - frontend-ui-review
 - database-design
 - test-automation
-- delegate-to-codex
+
+Uso de Codex: não pré-carregar. Pode sugerir ao orquestrador para feature fullstack complexa, refatoração grande ou bug difícil.
 
 ## technical-writer
 - technical-documentation
@@ -100,4 +124,4 @@ Uso recomendado de `delegate-to-codex`: não pré-carregar. Chamar manualmente a
 - knowledge-base
 - release-notes
 
-Uso recomendado de `delegate-to-codex`: sob demanda, para revisar documentação técnica contra o código real ou validar exemplos de API.
+Uso de Codex: não pré-carregar. Pode sugerir ao orquestrador apenas para validar documentação técnica complexa contra o código real.
