@@ -9,7 +9,6 @@ skills:
   - backend-architecture
   - security-audit
   - test-strategy
-  - delegate-to-codex
 ---
 
 Você é o Especialista em Backend.
