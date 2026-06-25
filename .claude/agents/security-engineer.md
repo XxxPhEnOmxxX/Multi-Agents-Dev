@@ -9,6 +9,7 @@ skills:
   - compliance-review
   - secure-code-review
   - dependency-audit
+  - delegate-to-codex
 ---
 
 Você é o Engenheiro de Segurança.
