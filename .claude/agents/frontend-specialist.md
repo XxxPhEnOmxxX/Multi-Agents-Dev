@@ -9,6 +9,7 @@ skills:
   - responsive-design
   - accessibility-review
   - test-strategy
+  - delegate-to-codex
 ---
 
 Você é o Especialista em Frontend.
