@@ -48,6 +48,50 @@ Exemplos:
 
 Se não existir uma skill exata para a tarefa, declare a skill mais próxima e complemente com a regra modular correspondente em `.claude/rules/`.
 
+## Fluxo de feature como time
+
+Toda feature deve funcionar como uma entrega de time.
+
+O Claude principal deve tratar cada feature como um ciclo com:
+
+1. planejamento;
+2. agent principal implementador;
+3. skills/procedimentos definidos;
+4. implementação incremental;
+5. decisão explícita sobre revisores;
+6. validações automatizadas;
+7. sistema local rodando quando possível ou necessário;
+8. revisão final do diff;
+9. PR com evidências.
+
+Antes de implementar uma feature, declare:
+
+- agent principal;
+- skills/procedimentos aplicáveis;
+- agents revisores prováveis;
+- comandos de validação esperados;
+- se será necessário subir o sistema localmente;
+- branch de trabalho;
+- risco técnico da alteração.
+
+Após implementar, o Claude principal deve analisar se o código precisa passar por revisão de outros agents antes de ser considerado aprovado.
+
+Revisão por outro agent é obrigatória quando a feature envolver:
+
+- regra de negócio relevante;
+- backend + frontend no mesmo fluxo;
+- autenticação, autorização, permissões ou dados sensíveis;
+- banco de dados, migrations ou persistência crítica;
+- Telegram, gateway, webhook ou callbacks;
+- Docker, proxy, deploy ou infraestrutura;
+- refatoração estrutural;
+- mudança que possa gerar regressão;
+- documentação de uso, operação ou API.
+
+Quando a feature envolver fluxo de usuário, painel admin, API consumida pelo frontend, Docker, Telegram/gateway, autenticação, banco ou comportamento operacional, suba o sistema localmente se for possível e necessário para validar.
+
+Se não for possível subir o sistema, registre o motivo e use a melhor validação disponível.
+
 ## Regras modulares
 
 As regras detalhadas ficam em `.claude/rules/`.
@@ -62,6 +106,7 @@ Use essas regras como fonte operacional complementar ao `CLAUDE.md`:
 - `frontend.md`: padrões para interface, React e responsividade.
 - `documentation.md`: documentação técnica e API.
 - `codex-delegation.md`: quando considerar ou evitar Codex.
+- `feature-team-flow.md`: fluxo de feature com implementador, revisores, validação local e evidências de PR.
 
 ## Roteamento para subagents
 
@@ -137,17 +182,20 @@ Para qualquer alteração em código, documentação versionada, configuração 
 2. Classificar o tipo da tarefa.
 3. Escolher e declarar o subagent principal.
 4. Declarar as skills/procedimentos aplicáveis.
-5. Escolher subagents revisores quando houver risco.
+5. Escolher subagents revisores prováveis.
 6. Criar plano curto antes de editar.
 7. Executar no WSL local.
 8. Fazer alterações pequenas e incrementais.
-9. Revisar o diff.
-10. Rodar validações compatíveis com o projeto.
-11. Verificar ausência de secrets e dados sensíveis.
-12. Garantir que a alteração está dentro do escopo.
-13. Se aprovado, criar commit claro.
-14. Fazer push da branch.
-15. Abrir Pull Request no GitHub.
+9. Avaliar se deve subir o sistema localmente para validar a feature.
+10. Se aplicável, subir o sistema localmente e executar smoke test do fluxo alterado.
+11. Revisar o diff.
+12. Decidir explicitamente se precisa de revisão por outros agents.
+13. Rodar validações compatíveis com o projeto.
+14. Verificar ausência de secrets e dados sensíveis.
+15. Garantir que a alteração está dentro do escopo.
+16. Se aprovado, criar commit claro.
+17. Fazer push da branch.
+18. Abrir Pull Request no GitHub.
 
 ## Validação mínima
 
@@ -159,8 +207,11 @@ Exemplos:
 - Python: `pytest`, `ruff check .`, `mypy .` quando existir.
 - Docker: `docker compose config`, build local e healthchecks quando aplicável.
 - Documentação: verificar links, comandos, exemplos e coerência com o código real.
+- Sistema local: quando aplicável, subir o sistema e validar o fluxo alterado com smoke test.
 
 Se algum comando não existir, explique que ele não está disponível e use a validação mais próxima.
+
+Se o sistema não puder ser iniciado localmente, registre o motivo e descreva o impacto na confiança da validação.
 
 ## Política de GitHub
 
@@ -177,8 +228,11 @@ A Pull Request deve conter:
 - resumo do que foi alterado;
 - motivo da alteração;
 - subagent principal usado;
+- agents revisores usados ou justificativa para não usar;
 - skills/procedimentos aplicáveis;
 - testes e validações executadas;
+- se o sistema foi iniciado localmente;
+- resultado do smoke test, quando aplicável;
 - riscos conhecidos;
 - plano de rollback quando aplicável.
 
@@ -219,10 +273,24 @@ Ao iniciar uma tarefa de desenvolvimento, responda com:
 1. Classificação da tarefa.
 2. Subagent principal escolhido.
 3. Justificativa do subagent escolhido.
-4. Subagents auxiliares, se houver.
+4. Subagents auxiliares/revisores prováveis.
 5. Skills/procedimentos aplicáveis.
 6. Plano de execução no WSL.
-7. Critérios de validação.
-8. Decisão sobre Codex.
-9. Estratégia de branch e PR.
-10. Próximo passo operacional.
+7. Se o sistema precisará ser iniciado localmente.
+8. Critérios de validação.
+9. Decisão sobre Codex.
+10. Estratégia de branch e PR.
+11. Próximo passo operacional.
+
+Ao finalizar uma feature, responda com:
+
+1. O que foi implementado.
+2. Agent principal utilizado.
+3. Agents revisores utilizados ou justificativa para não usar.
+4. Skills/procedimentos utilizados.
+5. Arquivos alterados.
+6. Validações executadas.
+7. Se o sistema foi iniciado localmente.
+8. Resultado do smoke test, quando aplicável.
+9. Riscos restantes.
+10. Status da branch/commit/PR.
