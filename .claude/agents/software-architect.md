@@ -9,7 +9,6 @@ skills:
   - design-pattern-review
   - integration-design
   - scalability-review
-  - delegate-to-codex
 ---
 
 Você é o Arquiteto de Software.
