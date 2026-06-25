@@ -4,13 +4,19 @@
 
 O Claude principal é o orquestrador soberano do fluxo de desenvolvimento.
 
-Os agents especializados executam, analisam ou revisam dentro de seus papéis, mas não decidem sozinhos quando usar o Codex.
+Essa regra fica no arquivo:
 
-A skill `delegate-to-codex` deve ser pré-carregada somente no agent `development-orchestrator`.
+```txt
+.claude/CLAUDE.md
+```
+
+Os agents especializados executam, analisam ou revisam dentro de seus papéis, mas não decidem sozinhos quando usar o Codex.
 
 ## Regra para `delegate-to-codex`
 
-Somente o `development-orchestrator` pode decidir usar `delegate-to-codex`.
+Somente o Claude principal pode decidir usar `delegate-to-codex`.
+
+Antes de delegar ao Codex, o Claude principal deve aplicar a skill `orchestrator-codex-gate`.
 
 Agents especializados podem recomendar uma consulta ao Codex, mas devem justificar:
 
@@ -23,10 +29,6 @@ Agents especializados podem recomendar uma consulta ao Codex, mas devem justific
 Não usar Codex para documentação simples, testes comuns, pequenas alterações de código, ajustes de texto, renomeações simples, refatorações triviais ou tarefas que um agent resolve com segurança.
 
 Usar Codex apenas quando houver ganho real de segunda opinião independente, como diff arriscado, mudança crítica, bug difícil, falha de teste não óbvia, refatoração grande ou decisão técnica de alto impacto.
-
-## development-orchestrator
-- orchestrator-codex-gate
-- delegate-to-codex
 
 ## backend-specialist
 - api-design
@@ -48,7 +50,7 @@ Usar Codex apenas quando houver ganho real de segunda opinião independente, com
 - cloud-architecture
 - observability-review
 
-Uso de Codex: não pré-carregar. Pode sugerir ao orquestrador quando houver risco técnico real.
+Uso de Codex: não pré-carregar. Pode sugerir ao Claude principal quando houver risco técnico real.
 
 ## security-engineer
 - security-audit
@@ -57,7 +59,7 @@ Uso de Codex: não pré-carregar. Pode sugerir ao orquestrador quando houver ris
 - secure-code-review
 - dependency-audit
 
-Uso de Codex: não pré-carregar. Pode sugerir ao orquestrador quando uma revisão independente reduzir risco.
+Uso de Codex: não pré-carregar. Pode sugerir ao Claude principal quando uma revisão independente reduzir risco.
 
 ## corporate-cto
 - architecture-review
@@ -83,7 +85,7 @@ Uso de Codex: não pré-carregar.
 - integration-design
 - scalability-review
 
-Uso de Codex: não pré-carregar. Pode sugerir ao orquestrador para decisões arquiteturais complexas.
+Uso de Codex: não pré-carregar. Pode sugerir ao Claude principal para decisões arquiteturais complexas.
 
 ## qa-engineer
 - test-strategy
@@ -91,7 +93,7 @@ Uso de Codex: não pré-carregar. Pode sugerir ao orquestrador para decisões ar
 - regression-plan
 - acceptance-criteria-review
 
-Uso de Codex: não pré-carregar. Pode sugerir ao orquestrador para falhas de teste difíceis ou regressões não óbvias.
+Uso de Codex: não pré-carregar. Pode sugerir ao Claude principal para falhas de teste difíceis ou regressões não óbvias.
 
 ## product-owner
 - requirements-analysis
@@ -116,7 +118,7 @@ Uso de Codex: não pré-carregar.
 - database-design
 - test-automation
 
-Uso de Codex: não pré-carregar. Pode sugerir ao orquestrador para feature fullstack complexa, refatoração grande ou bug difícil.
+Uso de Codex: não pré-carregar. Pode sugerir ao Claude principal para feature fullstack complexa, refatoração grande ou bug difícil.
 
 ## technical-writer
 - technical-documentation
@@ -124,4 +126,4 @@ Uso de Codex: não pré-carregar. Pode sugerir ao orquestrador para feature full
 - knowledge-base
 - release-notes
 
-Uso de Codex: não pré-carregar. Pode sugerir ao orquestrador apenas para validar documentação técnica complexa contra o código real.
+Uso de Codex: não pré-carregar. Pode sugerir ao Claude principal apenas para validar documentação técnica complexa contra o código real.
