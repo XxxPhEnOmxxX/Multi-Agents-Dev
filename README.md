@@ -1,2 +1,2 @@
 # Multi-Agents-Dev
-Estrutura de Multi Agents Para Desenvolvimento
+Estrutura de Multi Agents Para Desenvolvimento de Software
