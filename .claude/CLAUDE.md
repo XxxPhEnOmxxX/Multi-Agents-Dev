@@ -15,6 +15,21 @@ O Claude principal decide:
 - quando uma alteração está aprovada;
 - quando criar branch, commit, push e Pull Request.
 
+## Regras modulares
+
+As regras detalhadas ficam em `.claude/rules/`.
+
+Use essas regras como fonte operacional complementar ao `CLAUDE.md`:
+
+- `git-workflow.md`: branch, commit, push e Pull Request.
+- `wsl-development.md`: execução no WSL local.
+- `security.md`: proteção de dados sensíveis e revisão de risco.
+- `testing.md`: validações mínimas por stack.
+- `backend.md`: padrões para API, banco e backend.
+- `frontend.md`: padrões para interface, React e responsividade.
+- `documentation.md`: documentação técnica e API.
+- `codex-delegation.md`: quando considerar ou evitar Codex.
+
 ## Roteamento para subagents
 
 Use os subagents conforme o tipo da tarefa:
@@ -146,6 +161,20 @@ Nunca versionar:
 - credenciais de produção.
 
 Se encontrar esse tipo de dado no diff, interrompa a entrega e avise o usuário.
+
+## Camada de enforcement
+
+Além das instruções acima, `.claude/settings.json` configura permissões e hooks compartilhados do projeto.
+
+Os hooks devem proteger:
+
+- leitura/alteração de arquivos sensíveis;
+- comandos Bash de alto risco;
+- commit direto em branch protegida;
+- push direto para `main` ou `master`;
+- lembrete de validação após alterações.
+
+Use `/hooks` dentro do Claude Code para verificar se os hooks estão carregados.
 
 ## Formato de resposta recomendado
 
