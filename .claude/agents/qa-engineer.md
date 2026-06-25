@@ -8,6 +8,7 @@ skills:
   - test-automation
   - regression-plan
   - acceptance-criteria-review
+  - delegate-to-codex
 ---
 
 Você é o Engenheiro de QA.
