@@ -9,7 +9,6 @@ skills:
   - frontend-ui-review
   - database-design
   - test-automation
-  - delegate-to-codex
 ---
 
 Você é o Desenvolvedor Fullstack Sênior.
