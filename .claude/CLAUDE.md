@@ -10,10 +10,43 @@ O Claude principal decide:
 
 - qual subagent deve atuar em cada tarefa;
 - quando uma tarefa precisa de mais de um subagent;
-- quando usar uma skill;
+- quais skills/procedimentos devem ser usados na tarefa;
 - quando usar o MCP do Codex;
 - quando uma alteração está aprovada;
 - quando criar branch, commit, push e Pull Request.
+
+## Regra obrigatória de orquestração por agent
+
+Para qualquer tarefa relacionada ao projeto, o Claude principal deve sempre escolher e declarar pelo menos um subagent especialista antes de executar.
+
+O Claude principal não deve executar uma tarefa técnica diretamente sem antes definir:
+
+1. subagent principal;
+2. subagents auxiliares ou revisores, quando houver risco ou escopo multidisciplinar;
+3. skills/procedimentos aplicáveis;
+4. validações necessárias;
+5. se Codex será evitado ou considerado.
+
+Exceções permitidas:
+
+- conversa casual sem ação no projeto;
+- explicação conceitual sem análise de arquivos;
+- pergunta simples que não envolva código, arquitetura, documentação, configuração ou planejamento do projeto.
+
+Mesmo em tarefas pequenas, se houver ação no projeto, escolha um subagent especialista.
+
+Exemplos:
+
+- Ajuste de API: `backend-specialist` + skills `api-design`, `test-strategy` quando aplicável.
+- Ajuste visual ou React: `frontend-specialist` + skills `frontend-ui-review`, `responsive-design` ou `react-optimization`.
+- Docker, proxy ou CI/CD: `devops-engineer` + skills `docker-infrastructure`, `devops-ci-cd` ou `observability-review`.
+- Segurança, autenticação ou dados sensíveis: `security-engineer` + skills `security-audit`, `secure-code-review` ou `threat-modeling`.
+- Arquitetura ou refatoração estrutural: `software-architect` + skills `architecture-review`, `system-design` ou `design-pattern-review`.
+- Testes e regressão: `qa-engineer` + skills `test-strategy`, `test-automation` ou `regression-plan`.
+- Documentação: `technical-writer` + skills `technical-documentation`, `api-documentation` ou `knowledge-base`.
+- Feature ponta a ponta: `senior-fullstack-developer` como principal, com `backend-specialist`, `frontend-specialist`, `qa-engineer` ou `security-engineer` como revisores conforme o risco.
+
+Se não existir uma skill exata para a tarefa, declare a skill mais próxima e complemente com a regra modular correspondente em `.claude/rules/`.
 
 ## Regras modulares
 
@@ -102,18 +135,19 @@ Para qualquer alteração em código, documentação versionada, configuração 
 
 1. Entender a tarefa.
 2. Classificar o tipo da tarefa.
-3. Escolher o subagent principal.
-4. Escolher subagents revisores quando houver risco.
-5. Criar plano curto antes de editar.
-6. Executar no WSL local.
-7. Fazer alterações pequenas e incrementais.
-8. Revisar o diff.
-9. Rodar validações compatíveis com o projeto.
-10. Verificar ausência de secrets e dados sensíveis.
-11. Garantir que a alteração está dentro do escopo.
-12. Se aprovado, criar commit claro.
-13. Fazer push da branch.
-14. Abrir Pull Request no GitHub.
+3. Escolher e declarar o subagent principal.
+4. Declarar as skills/procedimentos aplicáveis.
+5. Escolher subagents revisores quando houver risco.
+6. Criar plano curto antes de editar.
+7. Executar no WSL local.
+8. Fazer alterações pequenas e incrementais.
+9. Revisar o diff.
+10. Rodar validações compatíveis com o projeto.
+11. Verificar ausência de secrets e dados sensíveis.
+12. Garantir que a alteração está dentro do escopo.
+13. Se aprovado, criar commit claro.
+14. Fazer push da branch.
+15. Abrir Pull Request no GitHub.
 
 ## Validação mínima
 
@@ -142,6 +176,8 @@ A Pull Request deve conter:
 
 - resumo do que foi alterado;
 - motivo da alteração;
+- subagent principal usado;
+- skills/procedimentos aplicáveis;
 - testes e validações executadas;
 - riscos conhecidos;
 - plano de rollback quando aplicável.
@@ -182,9 +218,11 @@ Ao iniciar uma tarefa de desenvolvimento, responda com:
 
 1. Classificação da tarefa.
 2. Subagent principal escolhido.
-3. Subagents auxiliares, se houver.
-4. Plano de execução no WSL.
-5. Critérios de validação.
-6. Decisão sobre Codex.
-7. Estratégia de branch e PR.
-8. Próximo passo operacional.
+3. Justificativa do subagent escolhido.
+4. Subagents auxiliares, se houver.
+5. Skills/procedimentos aplicáveis.
+6. Plano de execução no WSL.
+7. Critérios de validação.
+8. Decisão sobre Codex.
+9. Estratégia de branch e PR.
+10. Próximo passo operacional.
