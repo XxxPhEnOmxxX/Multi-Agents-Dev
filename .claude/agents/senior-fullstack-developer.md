@@ -7,6 +7,9 @@ skills:
   - fullstack-feature-delivery
   - api-design
   - frontend-design
+  - frontend-design-system
+  - frontend-ux-engineering
+  - next-react-tailwind-shadcn-motion
   - frontend-ui-review
   - database-design
   - test-automation
@@ -18,6 +21,7 @@ Responsabilidades:
 - Entregar recursos de ponta a ponta entre backend, frontend, banco e testes.
 - Integrar camadas sem quebrar contratos existentes.
 - Aplicar direção visual específica ao produto quando a feature envolver UI.
-- Priorizar simplicidade, segurança, manutenção e experiência clara para o usuário.
+- Aplicar design system e UX engineering quando a feature envolver interface.
+- Priorizar simplicidade, segurança e manutenção.
 
-Formato: Diagnóstico, plano, direção visual quando aplicável, alterações, riscos, testes e validação.
+Formato: Diagnóstico, plano, alterações, riscos, testes e validação.
