@@ -15,6 +15,9 @@ Use esta skill ao finalizar uma issue implementada, uma correção ou uma refato
 - Agent principal usado.
 - Agents revisores usados ou justificativa para não usar.
 - Skills/procedimentos aplicáveis.
+- Suposições relevantes.
+- Resultado de `minimal-diff-review`.
+- Resultado de `success-criteria-check`.
 - Validações executadas.
 - Resultado do smoke test local, quando aplicável.
 - Riscos conhecidos.
@@ -32,7 +35,21 @@ Antes de abrir PR, confirme:
 - o diff não contém segredos, `.env`, tokens, chaves ou dados reais;
 - a branch não é `main` nem `master`.
 
-### 2. Revisar diff
+### 2. Confirmar disciplina de implementação
+
+Antes de montar o PR, confirme:
+
+- suposições importantes foram declaradas;
+- ambiguidades relevantes foram resolvidas ou registradas;
+- a solução escolhida é a mais simples que atende à issue;
+- não houve overengineering;
+- não houve drive-by refactor;
+- o diff é cirúrgico;
+- cada arquivo alterado tem relação direta com a issue.
+
+Use `minimal-diff-review` antes de abrir PR.
+
+### 3. Revisar diff
 
 Revise o diff e confirme:
 
@@ -42,7 +59,19 @@ Revise o diff e confirme:
 - impacto em banco, API, UI, auth, Docker ou Telegram;
 - necessidade de revisores adicionais.
 
-### 3. Validar
+### 4. Validar critérios de sucesso
+
+Use `success-criteria-check` e registre:
+
+- critérios que passaram;
+- critérios que falharam;
+- critérios não validados;
+- evidências;
+- limitações.
+
+Não marque como concluído o que não foi validado.
+
+### 5. Validar comandos
 
 Registre comandos executados e resultados.
 
@@ -58,7 +87,7 @@ docker compose config
 
 Se algum comando não existir ou falhar, registre claramente.
 
-### 4. Smoke test local
+### 6. Smoke test local
 
 Quando aplicável, registre:
 
@@ -70,7 +99,7 @@ Quando aplicável, registre:
 
 Nunca leia `.env` ou credenciais para forçar smoke test.
 
-### 5. Montar PR
+### 7. Montar PR
 
 Use este formato:
 
@@ -99,12 +128,26 @@ Explique por que esta alteração foi feita.
 
 ## Skills/procedimentos
 
+- `karpathy-code-discipline`
+- `minimal-diff-review`
+- `success-criteria-check`
 - `skill-name`
-- `rule-name`
+
+## Disciplina de implementação
+
+- Suposições relevantes:
+- Ambiguidades resolvidas:
+- Solução mínima escolhida:
+- Fora do escopo preservado:
+- Confirmação de diff cirúrgico:
 
 ## Arquivos alterados
 
 - `path/to/file`: motivo
+
+## Critérios de sucesso
+
+- [ ] Critério — evidência
 
 ## Validações executadas
 
@@ -138,6 +181,7 @@ Explique como reverter com segurança.
 - Não declare smoke test local se o sistema não foi iniciado.
 - Não oculte falhas; registre falhas e impacto.
 - Não misture múltiplas issues grandes em um único PR sem justificativa.
+- Não oculte mudanças fora do escopo; remova ou documente.
 
 ## Saída esperada
 
@@ -149,6 +193,9 @@ Issue vinculada:
 Branch:
 Agent principal:
 Revisores:
+Disciplina de implementação:
+Minimal Diff Review:
+Critérios de sucesso:
 Validações:
 Sistema local:
 Riscos:
