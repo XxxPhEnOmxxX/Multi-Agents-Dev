@@ -39,7 +39,37 @@ Identifique:
 
 Se a issue estiver vaga, gere uma proposta de refinamento antes de implementar.
 
-### 3. Classificar a task
+### 3. Aplicar disciplina antes de codar
+
+Use a skill `karpathy-code-discipline` antes de alterar arquivos.
+
+Declare:
+
+- o que a issue realmente pede;
+- o que não está sendo pedido;
+- suposições importantes;
+- ambiguidades;
+- solução mais simples aceitável;
+- arquivos prováveis;
+- critérios verificáveis de sucesso.
+
+Se a ambiguidade afetar regra de negócio, segurança, contrato público, banco ou produção, peça decisão antes de seguir.
+
+### 4. Definir critérios de sucesso
+
+Use a skill `success-criteria-check` para transformar os critérios de aceite em checklist verificável.
+
+Cada critério deve ter:
+
+```txt
+Critério:
+Validação:
+Evidência esperada:
+```
+
+Não implemente tarefa vaga sem critério verificável mínimo.
+
+### 5. Classificar a task
 
 Classifique a issue como uma ou mais categorias:
 
@@ -53,7 +83,7 @@ Classifique a issue como uma ou mais categorias:
 - arquitetura;
 - produto/projeto.
 
-### 4. Escolher agent principal
+### 6. Escolher agent principal
 
 Escolha um agent principal conforme a task:
 
@@ -66,10 +96,13 @@ Escolha um agent principal conforme a task:
 - `software-architect` para arquitetura e refatoração estrutural;
 - `technical-writer` para documentação.
 
-### 5. Declarar skills/procedimentos
+### 7. Declarar skills/procedimentos
 
 Declare as skills/procedimentos aplicáveis, por exemplo:
 
+- `karpathy-code-discipline`;
+- `success-criteria-check`;
+- `minimal-diff-review`;
 - `api-design`;
 - `database-design`;
 - `frontend-ui-review`;
@@ -80,7 +113,7 @@ Declare as skills/procedimentos aplicáveis, por exemplo:
 - `feature-team-flow`;
 - `pr-from-issue`.
 
-### 6. Escolher revisores
+### 8. Escolher revisores
 
 Escolha revisores simulados quando houver risco ou escopo multidisciplinar:
 
@@ -92,7 +125,7 @@ Escolha revisores simulados quando houver risco ou escopo multidisciplinar:
 - infraestrutura: `devops-engineer`;
 - documentação de uso/API/operação: `technical-writer`.
 
-### 7. Criar branch
+### 9. Criar branch
 
 Use branch vinculada à issue:
 
@@ -105,7 +138,7 @@ docs/issue-123-descricao-curta
 
 Nunca trabalhe direto em `main` ou `master`.
 
-### 8. Implementar escopo mínimo
+### 10. Implementar escopo mínimo
 
 Durante a implementação:
 
@@ -113,9 +146,21 @@ Durante a implementação:
 - não antecipe features futuras;
 - não misture refatoração ampla com feature;
 - preserve comportamento existente fora do escopo;
-- mantenha commits pequenos e claros.
+- mantenha commits pequenos e claros;
+- prefira solução direta quando não houver necessidade real de abstração;
+- registre melhorias fora do escopo como novas issues.
 
-### 9. Validar
+### 11. Revisar diff mínimo
+
+Antes de validar, use `minimal-diff-review` para confirmar:
+
+- arquivos alterados têm relação direta com a issue;
+- não há drive-by refactor;
+- não há formatação massiva sem necessidade;
+- não há abstração prematura;
+- o PR está pequeno o suficiente para revisão segura.
+
+### 12. Validar
 
 Rode validações compatíveis com o projeto:
 
@@ -128,7 +173,9 @@ Rode validações compatíveis com o projeto:
 
 Se o sistema envolver fluxo de usuário, API, frontend, Telegram/gateway, banco, autenticação ou Docker, tente subir localmente e validar.
 
-### 10. Preparar PR
+Use `success-criteria-check` novamente para confirmar quais critérios passaram, falharam ou não puderam ser validados.
+
+### 13. Preparar PR
 
 Ao finalizar, use a skill `pr-from-issue` para montar a descrição do PR.
 
@@ -144,6 +191,11 @@ Classificação:
 Agent principal:
 Revisores:
 Skills:
+Suposições:
+Ambiguidades:
+Solução mais simples:
+Fora do escopo:
+Critérios de sucesso:
 Branch:
 Validações planejadas:
 Sistema local será iniciado:
@@ -159,6 +211,8 @@ Arquivos alterados:
 Agent principal:
 Revisores usados:
 Skills:
+Minimal Diff Review:
+Critérios verificados:
 Validações executadas:
 Sistema local:
 Smoke test:
