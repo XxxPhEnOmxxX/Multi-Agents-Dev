@@ -42,15 +42,46 @@ Antes de implementar uma feature, o Claude principal deve:
 1. consultar ou receber a issue relacionada;
 2. confirmar objetivo, escopo permitido e fora do escopo;
 3. confirmar critérios de aceite;
-4. escolher agent principal;
-5. declarar skills/procedimentos;
-6. definir revisores esperados;
-7. criar branch vinculada à issue;
-8. preparar PR com `Closes #<issue>` ao finalizar.
+4. aplicar disciplina de código antes de editar;
+5. escolher agent principal;
+6. declarar skills/procedimentos;
+7. definir revisores esperados;
+8. criar branch vinculada à issue;
+9. preparar PR com `Closes #<issue>` ao finalizar.
 
 Se o usuário pedir uma feature sem issue, prefira criar ou propor a issue antes da implementação.
 
 Tarefas pequenas de documentação, diagnóstico, correção emergencial ou manutenção operacional podem ser feitas sem issue, mas isso deve ser declarado.
+
+## Regra obrigatória de disciplina de código
+
+Antes de alterar código, configuração, infraestrutura, schema, testes ou documentação operacional, aplique a skill `karpathy-code-discipline`.
+
+O Claude principal deve declarar:
+
+1. o que a issue realmente pede;
+2. suposições relevantes;
+3. ambiguidades relevantes;
+4. solução mais simples aceitável;
+5. o que está fora do escopo;
+6. critérios verificáveis de sucesso;
+7. validações planejadas.
+
+Durante a implementação:
+
+- prefira a solução mais simples que resolva a issue;
+- mantenha mudanças cirúrgicas;
+- não faça drive-by refactor;
+- não crie abstrações especulativas;
+- não misture feature, refatoração e limpeza no mesmo PR;
+- não altere arquivos sem relação direta com a issue.
+
+Antes do PR, aplique:
+
+- `minimal-diff-review` para verificar se o diff é pequeno, focado e justificável;
+- `success-criteria-check` para confirmar critérios de aceite e evidências.
+
+Se uma melhoria for útil mas estiver fora do escopo, registre como nova issue em vez de implementar junto.
 
 ## Regra obrigatória de orquestração por agent
 
@@ -92,20 +123,24 @@ Toda feature deve funcionar como uma entrega de time.
 O Claude principal deve tratar cada feature como um ciclo com:
 
 1. planejamento a partir da issue;
-2. agent principal implementador;
-3. skills/procedimentos definidos;
-4. implementação incremental;
-5. decisão explícita sobre revisores;
-6. validações automatizadas;
-7. sistema local rodando quando possível ou necessário;
-8. revisão final do diff;
-9. PR com evidências e vínculo com a issue.
+2. disciplina de código antes de editar;
+3. agent principal implementador;
+4. skills/procedimentos definidos;
+5. implementação incremental e cirúrgica;
+6. decisão explícita sobre revisores;
+7. validações automatizadas;
+8. sistema local rodando quando possível ou necessário;
+9. minimal diff review;
+10. revisão final do diff;
+11. PR com evidências e vínculo com a issue.
 
 Antes de implementar uma feature, declare:
 
 - issue relacionada;
 - agent principal;
 - skills/procedimentos aplicáveis;
+- suposições e ambiguidades;
+- solução mínima escolhida;
 - agents revisores prováveis;
 - comandos de validação esperados;
 - se será necessário subir o sistema localmente;
@@ -138,6 +173,7 @@ Use essas regras como fonte operacional complementar ao `CLAUDE.md`:
 
 - `git-workflow.md`: branch, commit, push e Pull Request.
 - `github-issues-workflow.md`: issues como backlog, PRs como entrega e rastreabilidade do trabalho.
+- `coding-discipline.md`: pensar antes de codar, simplicidade, mudanças cirúrgicas e critérios verificáveis.
 - `wsl-development.md`: execução no WSL local.
 - `security.md`: proteção de dados sensíveis e revisão de risco.
 - `testing.md`: validações mínimas por stack.
@@ -147,11 +183,14 @@ Use essas regras como fonte operacional complementar ao `CLAUDE.md`:
 - `codex-delegation.md`: quando considerar ou evitar Codex.
 - `feature-team-flow.md`: fluxo de feature com implementador, revisores, validação local e evidências de PR.
 
-## Skills de fluxo GitHub
+## Skills de fluxo GitHub e disciplina
 
 Use estas skills quando trabalhar com issues e PRs:
 
 - `issue-to-feature-flow`: transformar issue em execução planejada, branch, implementação e validação.
+- `karpathy-code-discipline`: pensar antes de codar, declarar suposições, evitar overengineering e escolher a solução mínima.
+- `minimal-diff-review`: revisar se o diff é cirúrgico, focado e diretamente ligado à issue.
+- `success-criteria-check`: transformar critérios de aceite em validações verificáveis e registrar evidências.
 - `pr-from-issue`: montar Pull Request rastreável, com `Closes #ID`, validações, revisores e rollback.
 
 ## Templates GitHub
@@ -244,23 +283,25 @@ Para qualquer alteração em código, documentação versionada, configuração 
 1. Entender a tarefa.
 2. Identificar ou propor a GitHub Issue relacionada.
 3. Ler a issue e confirmar escopo.
-4. Classificar o tipo da tarefa.
-5. Escolher e declarar o subagent principal.
-6. Declarar as skills/procedimentos aplicáveis.
-7. Escolher subagents revisores prováveis.
-8. Criar plano curto antes de editar.
-9. Executar no WSL local.
-10. Fazer alterações pequenas e incrementais.
-11. Avaliar se deve subir o sistema localmente para validar a feature.
-12. Se aplicável, subir o sistema localmente e executar smoke test do fluxo alterado.
-13. Revisar o diff.
-14. Decidir explicitamente se precisa de revisão por outros agents.
-15. Rodar validações compatíveis com o projeto.
-16. Verificar ausência de secrets e dados sensíveis.
-17. Garantir que a alteração está dentro do escopo da issue.
-18. Se aprovado, criar commit claro.
-19. Fazer push da branch.
-20. Abrir Pull Request no GitHub com `Closes #ID` ou `Refs #ID`.
+4. Aplicar `karpathy-code-discipline`.
+5. Definir critérios verificáveis com `success-criteria-check`.
+6. Classificar o tipo da tarefa.
+7. Escolher e declarar o subagent principal.
+8. Declarar as skills/procedimentos aplicáveis.
+9. Escolher subagents revisores prováveis.
+10. Criar plano curto antes de editar.
+11. Executar no WSL local.
+12. Fazer alterações pequenas, cirúrgicas e incrementais.
+13. Avaliar se deve subir o sistema localmente para validar a feature.
+14. Se aplicável, subir o sistema localmente e executar smoke test do fluxo alterado.
+15. Revisar o diff com `minimal-diff-review`.
+16. Decidir explicitamente se precisa de revisão por outros agents.
+17. Rodar validações compatíveis com o projeto.
+18. Verificar ausência de secrets e dados sensíveis.
+19. Garantir que a alteração está dentro do escopo da issue.
+20. Se aprovado, criar commit claro.
+21. Fazer push da branch.
+22. Abrir Pull Request no GitHub com `Closes #ID` ou `Refs #ID`.
 
 ## Validação mínima
 
@@ -298,6 +339,10 @@ A Pull Request deve conter:
 - subagent principal usado;
 - agents revisores usados ou justificativa para não usar;
 - skills/procedimentos aplicáveis;
+- suposições e ambiguidades relevantes;
+- confirmação de solução mínima;
+- confirmação de diff cirúrgico;
+- critérios de sucesso e evidências;
 - testes e validações executadas;
 - se o sistema foi iniciado localmente;
 - resultado do smoke test, quando aplicável;
@@ -344,12 +389,15 @@ Ao iniciar uma tarefa de desenvolvimento, responda com:
 4. Justificativa do subagent escolhido.
 5. Subagents auxiliares/revisores prováveis.
 6. Skills/procedimentos aplicáveis.
-7. Plano de execução no WSL.
-8. Se o sistema precisará ser iniciado localmente.
-9. Critérios de validação.
-10. Decisão sobre Codex.
-11. Estratégia de branch e PR.
-12. Próximo passo operacional.
+7. Suposições e ambiguidades relevantes.
+8. Solução mais simples escolhida.
+9. Critérios verificáveis de sucesso.
+10. Plano de execução no WSL.
+11. Se o sistema precisará ser iniciado localmente.
+12. Critérios de validação.
+13. Decisão sobre Codex.
+14. Estratégia de branch e PR.
+15. Próximo passo operacional.
 
 Ao finalizar uma feature, responda com:
 
@@ -359,9 +407,11 @@ Ao finalizar uma feature, responda com:
 4. Agents revisores utilizados ou justificativa para não usar.
 5. Skills/procedimentos utilizados.
 6. Arquivos alterados.
-7. Validações executadas.
-8. Se o sistema foi iniciado localmente.
-9. Resultado do smoke test, quando aplicável.
-10. Riscos restantes.
-11. Status da branch/commit/PR.
-12. Se o PR fecha ou apenas referencia a issue.
+7. Minimal Diff Review.
+8. Critérios de sucesso verificados.
+9. Validações executadas.
+10. Se o sistema foi iniciado localmente.
+11. Resultado do smoke test, quando aplicável.
+12. Riscos restantes.
+13. Status da branch/commit/PR.
+14. Se o PR fecha ou apenas referencia a issue.
