@@ -15,6 +15,43 @@ O Claude principal decide:
 - quando uma alteração está aprovada;
 - quando criar branch, commit, push e Pull Request.
 
+## Fonte de verdade do projeto
+
+Para continuidade entre Claude Code, Codex e outros agentes, use esta ordem de fonte de verdade:
+
+```txt
+PROJECT_OBJECTIVE.md = visão fixa do produto
+GitHub Issues        = trabalho pendente
+Pull Requests        = trabalho implementado
+Commits              = histórico técnico real
+```
+
+A memória da conversa não deve ser tratada como fonte principal de progresso do projeto.
+
+Quando existir `.ai/PROJECT_OBJECTIVE.md`, leia esse arquivo para entender a visão fixa do produto antes de escolher ou executar uma issue.
+
+Issues abertas representam backlog e pendências.
+PRs mergeados representam o que já foi implementado.
+
+## Regra obrigatória de GitHub Issues
+
+Nenhuma feature deve ser implementada sem uma GitHub Issue aberta, salvo autorização explícita do usuário.
+
+Antes de implementar uma feature, o Claude principal deve:
+
+1. consultar ou receber a issue relacionada;
+2. confirmar objetivo, escopo permitido e fora do escopo;
+3. confirmar critérios de aceite;
+4. escolher agent principal;
+5. declarar skills/procedimentos;
+6. definir revisores esperados;
+7. criar branch vinculada à issue;
+8. preparar PR com `Closes #<issue>` ao finalizar.
+
+Se o usuário pedir uma feature sem issue, prefira criar ou propor a issue antes da implementação.
+
+Tarefas pequenas de documentação, diagnóstico, correção emergencial ou manutenção operacional podem ser feitas sem issue, mas isso deve ser declarado.
+
 ## Regra obrigatória de orquestração por agent
 
 Para qualquer tarefa relacionada ao projeto, o Claude principal deve sempre escolher e declarar pelo menos um subagent especialista antes de executar.
@@ -54,7 +91,7 @@ Toda feature deve funcionar como uma entrega de time.
 
 O Claude principal deve tratar cada feature como um ciclo com:
 
-1. planejamento;
+1. planejamento a partir da issue;
 2. agent principal implementador;
 3. skills/procedimentos definidos;
 4. implementação incremental;
@@ -62,10 +99,11 @@ O Claude principal deve tratar cada feature como um ciclo com:
 6. validações automatizadas;
 7. sistema local rodando quando possível ou necessário;
 8. revisão final do diff;
-9. PR com evidências.
+9. PR com evidências e vínculo com a issue.
 
 Antes de implementar uma feature, declare:
 
+- issue relacionada;
 - agent principal;
 - skills/procedimentos aplicáveis;
 - agents revisores prováveis;
@@ -99,6 +137,7 @@ As regras detalhadas ficam em `.claude/rules/`.
 Use essas regras como fonte operacional complementar ao `CLAUDE.md`:
 
 - `git-workflow.md`: branch, commit, push e Pull Request.
+- `github-issues-workflow.md`: issues como backlog, PRs como entrega e rastreabilidade do trabalho.
 - `wsl-development.md`: execução no WSL local.
 - `security.md`: proteção de dados sensíveis e revisão de risco.
 - `testing.md`: validações mínimas por stack.
@@ -107,6 +146,29 @@ Use essas regras como fonte operacional complementar ao `CLAUDE.md`:
 - `documentation.md`: documentação técnica e API.
 - `codex-delegation.md`: quando considerar ou evitar Codex.
 - `feature-team-flow.md`: fluxo de feature com implementador, revisores, validação local e evidências de PR.
+
+## Skills de fluxo GitHub
+
+Use estas skills quando trabalhar com issues e PRs:
+
+- `issue-to-feature-flow`: transformar issue em execução planejada, branch, implementação e validação.
+- `pr-from-issue`: montar Pull Request rastreável, com `Closes #ID`, validações, revisores e rollback.
+
+## Templates GitHub
+
+Templates reutilizáveis ficam em:
+
+```txt
+.claude/templates/github/
+```
+
+Incluem:
+
+- `ISSUE_TEMPLATE/feature.md`
+- `ISSUE_TEMPLATE/bug.md`
+- `PULL_REQUEST_TEMPLATE.md`
+
+Quando copiar esta infraestrutura para um projeto real, esses templates podem ser usados como base para `.github/ISSUE_TEMPLATE/` e `.github/PULL_REQUEST_TEMPLATE.md` do projeto.
 
 ## Roteamento para subagents
 
@@ -172,30 +234,33 @@ Antes de alterar arquivos:
 2. verifique `git status`;
 3. identifique a branch atual;
 4. não trabalhe diretamente em `main`;
-5. atualize a base antes de criar branch de trabalho quando aplicável.
+5. atualize a base antes de criar branch de trabalho quando aplicável;
+6. identifique a issue relacionada quando a tarefa for feature, bug, refactor ou mudança planejada.
 
 ## Fluxo obrigatório para alterações
 
 Para qualquer alteração em código, documentação versionada, configuração ou infraestrutura:
 
 1. Entender a tarefa.
-2. Classificar o tipo da tarefa.
-3. Escolher e declarar o subagent principal.
-4. Declarar as skills/procedimentos aplicáveis.
-5. Escolher subagents revisores prováveis.
-6. Criar plano curto antes de editar.
-7. Executar no WSL local.
-8. Fazer alterações pequenas e incrementais.
-9. Avaliar se deve subir o sistema localmente para validar a feature.
-10. Se aplicável, subir o sistema localmente e executar smoke test do fluxo alterado.
-11. Revisar o diff.
-12. Decidir explicitamente se precisa de revisão por outros agents.
-13. Rodar validações compatíveis com o projeto.
-14. Verificar ausência de secrets e dados sensíveis.
-15. Garantir que a alteração está dentro do escopo.
-16. Se aprovado, criar commit claro.
-17. Fazer push da branch.
-18. Abrir Pull Request no GitHub.
+2. Identificar ou propor a GitHub Issue relacionada.
+3. Ler a issue e confirmar escopo.
+4. Classificar o tipo da tarefa.
+5. Escolher e declarar o subagent principal.
+6. Declarar as skills/procedimentos aplicáveis.
+7. Escolher subagents revisores prováveis.
+8. Criar plano curto antes de editar.
+9. Executar no WSL local.
+10. Fazer alterações pequenas e incrementais.
+11. Avaliar se deve subir o sistema localmente para validar a feature.
+12. Se aplicável, subir o sistema localmente e executar smoke test do fluxo alterado.
+13. Revisar o diff.
+14. Decidir explicitamente se precisa de revisão por outros agents.
+15. Rodar validações compatíveis com o projeto.
+16. Verificar ausência de secrets e dados sensíveis.
+17. Garantir que a alteração está dentro do escopo da issue.
+18. Se aprovado, criar commit claro.
+19. Fazer push da branch.
+20. Abrir Pull Request no GitHub com `Closes #ID` ou `Refs #ID`.
 
 ## Validação mínima
 
@@ -220,11 +285,14 @@ Nunca faça commit ou push direto em `main`.
 Toda alteração aprovada deve seguir este fluxo:
 
 ```txt
-branch de trabalho -> commit -> push -> Pull Request
+issue -> branch de trabalho -> commit -> push -> Pull Request -> merge -> issue fechada
 ```
 
 A Pull Request deve conter:
 
+- issue relacionada;
+- `Closes #ID` quando resolver a issue;
+- `Refs #ID` quando apenas avançar parcialmente a issue;
 - resumo do que foi alterado;
 - motivo da alteração;
 - subagent principal usado;
@@ -270,27 +338,30 @@ Use `/hooks` dentro do Claude Code para verificar se os hooks estão carregados.
 
 Ao iniciar uma tarefa de desenvolvimento, responda com:
 
-1. Classificação da tarefa.
-2. Subagent principal escolhido.
-3. Justificativa do subagent escolhido.
-4. Subagents auxiliares/revisores prováveis.
-5. Skills/procedimentos aplicáveis.
-6. Plano de execução no WSL.
-7. Se o sistema precisará ser iniciado localmente.
-8. Critérios de validação.
-9. Decisão sobre Codex.
-10. Estratégia de branch e PR.
-11. Próximo passo operacional.
+1. Issue relacionada ou justificativa para não usar issue.
+2. Classificação da tarefa.
+3. Subagent principal escolhido.
+4. Justificativa do subagent escolhido.
+5. Subagents auxiliares/revisores prováveis.
+6. Skills/procedimentos aplicáveis.
+7. Plano de execução no WSL.
+8. Se o sistema precisará ser iniciado localmente.
+9. Critérios de validação.
+10. Decisão sobre Codex.
+11. Estratégia de branch e PR.
+12. Próximo passo operacional.
 
 Ao finalizar uma feature, responda com:
 
-1. O que foi implementado.
-2. Agent principal utilizado.
-3. Agents revisores utilizados ou justificativa para não usar.
-4. Skills/procedimentos utilizados.
-5. Arquivos alterados.
-6. Validações executadas.
-7. Se o sistema foi iniciado localmente.
-8. Resultado do smoke test, quando aplicável.
-9. Riscos restantes.
-10. Status da branch/commit/PR.
+1. Issue relacionada.
+2. O que foi implementado.
+3. Agent principal utilizado.
+4. Agents revisores utilizados ou justificativa para não usar.
+5. Skills/procedimentos utilizados.
+6. Arquivos alterados.
+7. Validações executadas.
+8. Se o sistema foi iniciado localmente.
+9. Resultado do smoke test, quando aplicável.
+10. Riscos restantes.
+11. Status da branch/commit/PR.
+12. Se o PR fecha ou apenas referencia a issue.
