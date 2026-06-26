@@ -118,6 +118,30 @@ Antes de PR, o agente deve executar:
 - `minimal-diff-review`: confirma que o diff é pequeno, focado e diretamente ligado à issue;
 - `success-criteria-check`: confirma que os critérios de aceite foram verificados com evidências.
 
+## Frontend Design
+
+A skill `frontend-design` adiciona uma camada de direção visual para evitar interfaces genéricas.
+
+Ela deve ser usada quando a tarefa envolver:
+
+- nova tela;
+- redesign;
+- painel admin;
+- dashboard;
+- landing page;
+- componente visual importante;
+- design system;
+- UX writing;
+- empty states, erros, alerts, toasts ou mensagens de formulário.
+
+Agentes que recebem essa skill:
+
+- `frontend-specialist`;
+- `senior-fullstack-developer`;
+- `product-owner`;
+- `qa-engineer`;
+- `software-architect`.
+
 ## Rules
 
 As regras modulares ficam em:
@@ -148,12 +172,13 @@ As skills ficam em:
 .claude/skills/
 ```
 
-Skills importantes para o fluxo GitHub e disciplina de código:
+Skills importantes para o fluxo GitHub, disciplina de código e frontend:
 
 - `issue-to-feature-flow`: transforma uma issue em execução planejada com agent, skills, branch e validações.
 - `karpathy-code-discipline`: força pensar antes de codar, declarar suposições, evitar overengineering e escolher a solução mínima.
 - `minimal-diff-review`: revisa se o diff é cirúrgico, focado e diretamente ligado à issue.
 - `success-criteria-check`: transforma critérios de aceite em validações verificáveis e registra evidências.
+- `frontend-design`: define direção visual específica ao produto, copy de interface, identidade visual e revisão estética.
 - `pr-from-issue`: cria PR rastreável com `Closes #ID`, validações, revisores, smoke test e rollback.
 - `orchestrator-codex-gate`: decide se Codex deve ser usado.
 - `delegate-to-codex`: delega análise/execução ao Codex quando aprovado pelo orquestrador.
@@ -220,4 +245,5 @@ Agents = especialistas executores/revisores
 Skills = procedimentos reutilizáveis
 Templates = padrões de issue e PR
 Coding Discipline = simplicidade, diff cirúrgico e critérios verificáveis
+Frontend Design = identidade visual, UX writing e qualidade estética de interface
 ```
