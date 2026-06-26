@@ -10,7 +10,7 @@ O Claude principal decide:
 
 - qual subagent deve atuar em cada tarefa;
 - quando uma tarefa precisa de mais de um subagent;
-- quais skills/procedimentos devem ser usados na tarefa;
+- quais skills/procedimentos devem ser usados;
 - quando usar o MCP do Codex;
 - quando uma alteração está aprovada;
 - quando criar branch, commit, push e Pull Request.
@@ -20,18 +20,18 @@ O Claude principal decide:
 Para continuidade entre Claude Code, Codex e outros agentes, use esta ordem de fonte de verdade:
 
 ```txt
-PROJECT_OBJECTIVE.md = visão fixa do produto
+Código atual         = estado real da aplicação
 GitHub Issues        = trabalho pendente
 Pull Requests        = trabalho implementado
 Commits              = histórico técnico real
+Documentação técnica = contexto complementar
 ```
 
 A memória da conversa não deve ser tratada como fonte principal de progresso do projeto.
 
-Quando existir `.ai/PROJECT_OBJECTIVE.md`, leia esse arquivo para entender a visão fixa do produto antes de escolher ou executar uma issue.
-
 Issues abertas representam backlog e pendências.
 PRs mergeados representam o que já foi implementado.
+Commits representam o histórico técnico real.
 
 ## Regra obrigatória de GitHub Issues
 
@@ -103,18 +103,59 @@ Exceções permitidas:
 
 Mesmo em tarefas pequenas, se houver ação no projeto, escolha um subagent especialista.
 
-Exemplos:
+## Roteamento para subagents
 
-- Ajuste de API: `backend-specialist` + skills `api-design`, `test-strategy` quando aplicável.
-- Ajuste visual ou React: `frontend-specialist` + skills `frontend-ui-review`, `responsive-design` ou `react-optimization`.
-- Docker, proxy ou CI/CD: `devops-engineer` + skills `docker-infrastructure`, `devops-ci-cd` ou `observability-review`.
-- Segurança, autenticação ou dados sensíveis: `security-engineer` + skills `security-audit`, `secure-code-review` ou `threat-modeling`.
-- Arquitetura ou refatoração estrutural: `software-architect` + skills `architecture-review`, `system-design` ou `design-pattern-review`.
-- Testes e regressão: `qa-engineer` + skills `test-strategy`, `test-automation` ou `regression-plan`.
-- Documentação: `technical-writer` + skills `technical-documentation`, `api-documentation` ou `knowledge-base`.
-- Feature ponta a ponta: `senior-fullstack-developer` como principal, com `backend-specialist`, `frontend-specialist`, `qa-engineer` ou `security-engineer` como revisores conforme o risco.
+Use os subagents conforme o tipo da tarefa:
 
-Se não existir uma skill exata para a tarefa, declare a skill mais próxima e complemente com a regra modular correspondente em `.claude/rules/`.
+- `backend-specialist`: APIs, banco de dados, services, arquitetura backend, validações e regras de servidor.
+- `frontend-specialist`: UI, UX, React, responsividade, acessibilidade, design system e componentes.
+- `devops-engineer`: Docker, Docker Compose, CI/CD, proxy, infraestrutura, cloud e observabilidade.
+- `security-engineer`: revisão de segurança, autorização, autenticação, dependências, exposição de dados e conformidade.
+- `corporate-cto`: decisões estratégicas, roadmap técnico, trade-offs de alto nível e arquitetura corporativa.
+- `engineering-manager`: planejamento técnico, capacidade, processo, riscos de entrega e performance do time.
+- `software-architect`: desenho de sistema, modularidade, integração, padrões e escalabilidade.
+- `qa-engineer`: estratégia de testes, automação, regressão e critérios de aceite.
+- `product-owner`: requisitos, histórias de usuário, priorização e comunicação com stakeholders.
+- `project-manager`: cronograma, planejamento, recursos, dependências e status report.
+- `senior-fullstack-developer`: implementação ponta a ponta envolvendo backend, frontend, banco e testes.
+- `technical-writer`: documentação técnica, documentação de API, base de conhecimento e release notes.
+
+## Regras modulares
+
+As regras detalhadas ficam em `.claude/rules/`.
+
+Use essas regras como fonte operacional complementar ao `CLAUDE.md`:
+
+- `git-workflow.md`: branch, commit, push e Pull Request.
+- `github-issues-workflow.md`: issues como backlog, PRs como entrega e rastreabilidade do trabalho.
+- `coding-discipline.md`: pensar antes de codar, simplicidade, mudanças cirúrgicas e critérios verificáveis.
+- `wsl-development.md`: execução no WSL local.
+- `security.md`: proteção de dados sensíveis e revisão de risco.
+- `testing.md`: validações mínimas por stack.
+- `backend.md`: padrões para API, banco e backend.
+- `frontend.md`: padrões para interface, React, design system, UX e responsividade.
+- `documentation.md`: documentação técnica e API.
+- `codex-delegation.md`: quando considerar ou evitar Codex.
+- `feature-team-flow.md`: fluxo de feature com implementador, revisores, validação local e evidências de PR.
+
+## Skills de fluxo GitHub e disciplina
+
+Use estas skills quando trabalhar com issues e PRs:
+
+- `issue-to-feature-flow`: transformar issue em execução planejada, branch, implementação e validação.
+- `karpathy-code-discipline`: pensar antes de codar, declarar suposições, evitar overengineering e escolher a solução mínima.
+- `minimal-diff-review`: revisar se o diff é cirúrgico, focado e diretamente ligado à issue.
+- `success-criteria-check`: transformar critérios de aceite em validações verificáveis e registrar evidências.
+- `pr-from-issue`: montar Pull Request rastreável, com `Closes #ID`, validações, revisores e rollback.
+
+## Skills de frontend
+
+Use estas skills quando a tarefa envolver interface, UX ou stack frontend moderna:
+
+- `frontend-design`: direção visual, identidade, copy e revisão estética.
+- `frontend-design-system`: tokens, Tailwind, shadcn/ui, radius, tipografia, grid, spacing, imagens e aspect ratio.
+- `frontend-ux-engineering`: filtros, busca, formulários, skeletons, empty states, erros, validação, mobile e feedback assíncrono.
+- `next-react-tailwind-shadcn-motion`: implementação com Next.js, React, TypeScript, Tailwind CSS, shadcn/ui e Motion.
 
 ## Fluxo de feature como time
 
@@ -147,8 +188,6 @@ Antes de implementar uma feature, declare:
 - branch de trabalho;
 - risco técnico da alteração.
 
-Após implementar, o Claude principal deve analisar se o código precisa passar por revisão de outros agents antes de ser considerado aprovado.
-
 Revisão por outro agent é obrigatória quando a feature envolver:
 
 - regra de negócio relevante;
@@ -164,67 +203,6 @@ Revisão por outro agent é obrigatória quando a feature envolver:
 Quando a feature envolver fluxo de usuário, painel admin, API consumida pelo frontend, Docker, Telegram/gateway, autenticação, banco ou comportamento operacional, suba o sistema localmente se for possível e necessário para validar.
 
 Se não for possível subir o sistema, registre o motivo e use a melhor validação disponível.
-
-## Regras modulares
-
-As regras detalhadas ficam em `.claude/rules/`.
-
-Use essas regras como fonte operacional complementar ao `CLAUDE.md`:
-
-- `git-workflow.md`: branch, commit, push e Pull Request.
-- `github-issues-workflow.md`: issues como backlog, PRs como entrega e rastreabilidade do trabalho.
-- `coding-discipline.md`: pensar antes de codar, simplicidade, mudanças cirúrgicas e critérios verificáveis.
-- `wsl-development.md`: execução no WSL local.
-- `security.md`: proteção de dados sensíveis e revisão de risco.
-- `testing.md`: validações mínimas por stack.
-- `backend.md`: padrões para API, banco e backend.
-- `frontend.md`: padrões para interface, React e responsividade.
-- `documentation.md`: documentação técnica e API.
-- `codex-delegation.md`: quando considerar ou evitar Codex.
-- `feature-team-flow.md`: fluxo de feature com implementador, revisores, validação local e evidências de PR.
-
-## Skills de fluxo GitHub e disciplina
-
-Use estas skills quando trabalhar com issues e PRs:
-
-- `issue-to-feature-flow`: transformar issue em execução planejada, branch, implementação e validação.
-- `karpathy-code-discipline`: pensar antes de codar, declarar suposições, evitar overengineering e escolher a solução mínima.
-- `minimal-diff-review`: revisar se o diff é cirúrgico, focado e diretamente ligado à issue.
-- `success-criteria-check`: transformar critérios de aceite em validações verificáveis e registrar evidências.
-- `pr-from-issue`: montar Pull Request rastreável, com `Closes #ID`, validações, revisores e rollback.
-
-## Templates GitHub
-
-Templates reutilizáveis ficam em:
-
-```txt
-.claude/templates/github/
-```
-
-Incluem:
-
-- `ISSUE_TEMPLATE/feature.md`
-- `ISSUE_TEMPLATE/bug.md`
-- `PULL_REQUEST_TEMPLATE.md`
-
-Quando copiar esta infraestrutura para um projeto real, esses templates podem ser usados como base para `.github/ISSUE_TEMPLATE/` e `.github/PULL_REQUEST_TEMPLATE.md` do projeto.
-
-## Roteamento para subagents
-
-Use os subagents conforme o tipo da tarefa:
-
-- `backend-specialist`: APIs, banco de dados, services, arquitetura backend, validações e regras de servidor.
-- `frontend-specialist`: UI, UX, React, responsividade, acessibilidade e componentes.
-- `devops-engineer`: Docker, Docker Compose, CI/CD, proxy, infraestrutura, cloud e observabilidade.
-- `security-engineer`: revisão de segurança, autorização, autenticação, dependências, exposição de dados e conformidade.
-- `corporate-cto`: decisões estratégicas, roadmap técnico, trade-offs de alto nível e arquitetura corporativa.
-- `engineering-manager`: planejamento técnico, capacidade, processo, riscos de entrega e performance do time.
-- `software-architect`: desenho de sistema, modularidade, integração, padrões e escalabilidade.
-- `qa-engineer`: estratégia de testes, automação, regressão e critérios de aceite.
-- `product-owner`: requisitos, histórias de usuário, priorização e comunicação com stakeholders.
-- `project-manager`: cronograma, planejamento, recursos, dependências e status report.
-- `senior-fullstack-developer`: implementação ponta a ponta envolvendo backend, frontend, banco e testes.
-- `technical-writer`: documentação técnica, documentação de API, base de conhecimento e release notes.
 
 ## Regra sobre Codex
 
