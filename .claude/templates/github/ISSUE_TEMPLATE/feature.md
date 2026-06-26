@@ -26,6 +26,28 @@ Referências úteis:
 - Não implementar:
 - Não refatorar:
 
+## Suposições conhecidas
+
+- 
+- 
+
+## Ambiguidades ou decisões pendentes
+
+- [ ] Não há ambiguidade relevante.
+- [ ] Existem decisões pendentes:
+
+Detalhes:
+
+```txt
+Liste qualquer dúvida que possa mudar regra de negócio, arquitetura, segurança, contrato público ou banco.
+```
+
+## Solução esperada
+
+Descreva a solução mais simples aceitável.
+
+Evite pedir abstrações, refatorações ou mudanças futuras que não sejam necessárias agora.
+
 ## Agent principal sugerido
 
 `<agent-name>`
@@ -52,10 +74,13 @@ Exemplos:
 
 - `feature-team-flow`
 - `issue-to-feature-flow`
+- `karpathy-code-discipline`
+- `minimal-diff-review`
+- `success-criteria-check`
 - `pr-from-issue`
 - `<skill-especifica>`
 
-## Critérios de aceite
+## Critérios de aceite verificáveis
 
 - [ ] Implementa o escopo descrito.
 - [ ] Não altera comportamento fora do escopo.
@@ -63,6 +88,7 @@ Exemplos:
 - [ ] Mantém URLs/contratos existentes, quando aplicável.
 - [ ] Inclui ou atualiza testes, quando aplicável.
 - [ ] Passa nas validações obrigatórias.
+- [ ] O diff é pequeno e diretamente relacionado à issue.
 - [ ] PR vincula esta issue com `Closes #<id>`.
 
 ## Validações obrigatórias
