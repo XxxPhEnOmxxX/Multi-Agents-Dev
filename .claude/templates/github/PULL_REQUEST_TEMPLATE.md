@@ -24,13 +24,47 @@ Explique por que esta alteração foi feita.
 ## Skills/procedimentos
 
 - `issue-to-feature-flow`
+- `karpathy-code-discipline`
+- `minimal-diff-review`
+- `success-criteria-check`
 - `pr-from-issue`
 - `feature-team-flow`
 - `<skill-especifica>`
 
+## Disciplina de implementação
+
+- [ ] Declarei suposições importantes.
+- [ ] Identifiquei ambiguidades relevantes ou confirmei que não havia.
+- [ ] A solução escolhida é a mais simples que resolve a issue.
+- [ ] Não fiz refatoração fora do escopo.
+- [ ] Não alterei código, comentários ou arquivos não relacionados.
+- [ ] Cada arquivo alterado tem relação direta com a issue.
+- [ ] Não criei abstrações especulativas ou prematuras.
+- [ ] Os critérios de aceite foram verificados.
+
+Observações:
+
+```txt
+Suposições, ambiguidades, decisões de simplicidade e limitações.
+```
+
 ## Arquivos alterados
 
 - `path/to/file`: motivo
+
+## Critérios de sucesso
+
+- [ ] Critério — evidência
+- [ ] Critério — evidência
+- [ ] Critério — evidência
+
+## Minimal Diff Review
+
+- [ ] O diff é pequeno e focado.
+- [ ] Não há drive-by refactor.
+- [ ] Não há formatação massiva sem necessidade.
+- [ ] Não há mudança de contrato fora do escopo.
+- [ ] Não há alteração sensível sem reviewer adequado.
 
 ## Validações executadas
 
@@ -72,6 +106,7 @@ Explique como reverter com segurança.
 
 - [ ] PR está vinculado à issue correta.
 - [ ] Escopo da issue foi respeitado.
+- [ ] A solução é mínima e verificável.
 - [ ] Não há secrets, `.env`, tokens, chaves ou dados sensíveis no diff.
 - [ ] Validações foram executadas ou limitações foram registradas.
 - [ ] Revisores necessários foram acionados ou justificados.
