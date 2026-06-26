@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Transformar uma GitHub Issue em uma entrega de feature pequena, validável e rastreável.
+Transformar uma GitHub Issue em uma entrega pequena, validável e rastreável.
 
 Use esta skill quando o usuário pedir para implementar uma issue, continuar uma task pendente ou escolher a próxima feature do backlog.
 
@@ -10,19 +10,19 @@ Use esta skill quando o usuário pedir para implementar uma issue, continuar uma
 
 - Número da issue, URL da issue ou descrição da task.
 - Repositório alvo.
-- Objetivo fixo do projeto, quando existir.
 - Stack do projeto.
+- Documentação técnica indicada pelo usuário, quando existir.
 
 ## Procedimento
 
-### 1. Ler contexto fixo
+### 1. Ler contexto operacional
 
 Antes de implementar, leia:
 
 - `CLAUDE.md`, quando existir;
 - `AGENTS.md`, quando existir;
-- `.ai/PROJECT_OBJECTIVE.md`, quando existir;
-- documentação equivalente indicada pelo usuário.
+- a GitHub Issue relacionada;
+- documentação técnica indicada pelo usuário.
 
 ### 2. Resolver a issue
 
@@ -106,6 +106,10 @@ Declare as skills/procedimentos aplicáveis, por exemplo:
 - `api-design`;
 - `database-design`;
 - `frontend-ui-review`;
+- `frontend-design`;
+- `frontend-design-system`;
+- `frontend-ux-engineering`;
+- `next-react-tailwind-shadcn-motion`;
 - `responsive-design`;
 - `security-audit`;
 - `test-strategy`;
