@@ -48,6 +48,7 @@ Esse arquivo orienta o Claude principal a:
 
 - ler a visão fixa do produto;
 - consultar GitHub Issues como backlog;
+- aplicar disciplina de código antes de editar;
 - classificar a tarefa;
 - escolher o subagent especializado;
 - definir skills/procedimentos;
@@ -91,6 +92,32 @@ Closes #ID
 
 quando resolver a issue.
 
+## Disciplina de código
+
+Inspirado nos princípios de simplicidade e execução orientada por objetivo, a estrutura agora exige:
+
+```txt
+Think Before Coding
+Simplicity First
+Surgical Changes
+Goal-Driven Execution
+```
+
+Na prática, antes de alterar código o agente deve declarar:
+
+- o que a issue pede;
+- suposições;
+- ambiguidades;
+- solução mais simples aceitável;
+- fora do escopo;
+- critérios verificáveis de sucesso;
+- validações planejadas.
+
+Antes de PR, o agente deve executar:
+
+- `minimal-diff-review`: confirma que o diff é pequeno, focado e diretamente ligado à issue;
+- `success-criteria-check`: confirma que os critérios de aceite foram verificados com evidências.
+
 ## Rules
 
 As regras modulares ficam em:
@@ -103,6 +130,7 @@ Arquivos incluídos:
 
 - `git-workflow.md`
 - `github-issues-workflow.md`
+- `coding-discipline.md`
 - `wsl-development.md`
 - `security.md`
 - `testing.md`
@@ -120,9 +148,12 @@ As skills ficam em:
 .claude/skills/
 ```
 
-Skills importantes para o fluxo GitHub:
+Skills importantes para o fluxo GitHub e disciplina de código:
 
 - `issue-to-feature-flow`: transforma uma issue em execução planejada com agent, skills, branch e validações.
+- `karpathy-code-discipline`: força pensar antes de codar, declarar suposições, evitar overengineering e escolher a solução mínima.
+- `minimal-diff-review`: revisa se o diff é cirúrgico, focado e diretamente ligado à issue.
+- `success-criteria-check`: transforma critérios de aceite em validações verificáveis e registra evidências.
 - `pr-from-issue`: cria PR rastreável com `Closes #ID`, validações, revisores, smoke test e rollback.
 - `orchestrator-codex-gate`: decide se Codex deve ser usado.
 - `delegate-to-codex`: delega análise/execução ao Codex quando aprovado pelo orquestrador.
@@ -188,4 +219,5 @@ Settings = permissões e hooks compartilhados
 Agents = especialistas executores/revisores
 Skills = procedimentos reutilizáveis
 Templates = padrões de issue e PR
+Coding Discipline = simplicidade, diff cirúrgico e critérios verificáveis
 ```
