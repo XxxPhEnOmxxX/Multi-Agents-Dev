@@ -37,6 +37,28 @@ Explique o resultado correto esperado.
 - Não refatorar módulos não relacionados.
 - Não alterar contrato público sem autorização.
 
+## Suposições conhecidas
+
+- 
+- 
+
+## Ambiguidades ou decisões pendentes
+
+- [ ] Não há ambiguidade relevante.
+- [ ] Existem decisões pendentes:
+
+Detalhes:
+
+```txt
+Liste qualquer dúvida que possa mudar regra de negócio, arquitetura, segurança, contrato público ou banco.
+```
+
+## Correção esperada
+
+Descreva a menor correção aceitável para resolver o bug.
+
+Evite incluir melhoria futura, redesign ou refatoração ampla junto com a correção.
+
 ## Agent principal sugerido
 
 `<agent-name>`
@@ -57,17 +79,22 @@ Sugestões:
 
 ## Skills/procedimentos sugeridos
 
+- `karpathy-code-discipline`
+- `minimal-diff-review`
+- `success-criteria-check`
 - `test-strategy`
 - `regression-plan`
 - `secure-code-review`, se aplicável
 - `issue-to-feature-flow`
 - `pr-from-issue`
 
-## Critérios de aceite
+## Critérios de aceite verificáveis
 
 - [ ] Bug corrigido.
 - [ ] Cenário de reprodução validado.
 - [ ] Teste de regressão criado ou justificativa registrada.
+- [ ] Comportamento fora do bug foi preservado.
+- [ ] O diff é pequeno e diretamente relacionado à issue.
 - [ ] Validações obrigatórias executadas.
 - [ ] PR vincula esta issue com `Closes #<id>`.
 
