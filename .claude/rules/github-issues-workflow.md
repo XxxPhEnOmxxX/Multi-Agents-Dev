@@ -5,10 +5,10 @@
 Use estas fontes na seguinte ordem:
 
 ```txt
-PROJECT_OBJECTIVE.md = visão fixa do produto
-GitHub Issues        = trabalho pendente
-Pull Requests        = trabalho implementado
-Commits              = histórico técnico real
+GitHub Issues = trabalho pendente
+Pull Requests = trabalho implementado
+Commits       = histórico técnico real
+Código atual  = estado real da aplicação
 ```
 
 A memória do chat não deve ser tratada como fonte de verdade para progresso do projeto.
@@ -19,22 +19,18 @@ Nenhuma feature deve ser implementada sem uma issue aberta ou uma justificativa 
 
 A issue representa o escopo pendente.
 O Pull Request representa a entrega implementada.
-O `PROJECT_OBJECTIVE.md` representa a visão fixa do produto.
+O código atual representa o estado real da aplicação.
 
 ## Antes de implementar
 
 Antes de iniciar qualquer alteração, o Claude principal deve:
 
-1. Ler o objetivo fixo do projeto, quando existir:
-   - `.ai/PROJECT_OBJECTIVE.md`
-   - `PROJECT_OBJECTIVE.md`
-   - documentação equivalente indicada pelo usuário.
-2. Consultar ou pedir a issue da tarefa.
-3. Confirmar se a issue está pronta para execução.
-4. Verificar se a issue tem escopo claro.
-5. Identificar labels de tipo, área, status e risco, quando existirem.
-6. Declarar agent principal, skills e revisores com base na issue.
-7. Criar ou sugerir branch vinculada à issue.
+1. Consultar ou pedir a issue da tarefa.
+2. Confirmar se a issue está pronta para execução.
+3. Verificar se a issue tem objetivo, escopo e critérios de aceite claros.
+4. Identificar labels de tipo, área, status e risco, quando existirem.
+5. Declarar agent principal, skills e revisores com base na issue.
+6. Criar ou sugerir branch vinculada à issue.
 
 ## Quando não existir issue
 
@@ -157,7 +153,6 @@ Se houver conflito entre memória de conversa, issue, PR e código atual, confie
 ```txt
 código atual + PRs mergeados
 issues abertas
-PROJECT_OBJECTIVE.md
 documentação do projeto
 memória do chat
 ```
