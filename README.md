@@ -46,7 +46,6 @@ A regra de orquestração fica em:
 
 Esse arquivo orienta o Claude principal a:
 
-- ler a visão fixa do produto;
 - consultar GitHub Issues como backlog;
 - aplicar disciplina de código antes de editar;
 - classificar a tarefa;
@@ -63,10 +62,10 @@ Esse arquivo orienta o Claude principal a:
 Fonte de verdade recomendada:
 
 ```txt
-PROJECT_OBJECTIVE.md = visão fixa do produto
-GitHub Issues        = trabalho pendente
-Pull Requests        = trabalho implementado
-Commits              = histórico técnico real
+GitHub Issues = trabalho pendente
+Pull Requests = trabalho implementado
+Commits       = histórico técnico real
+Código atual  = estado real da aplicação
 ```
 
 Fluxo padrão:
@@ -74,6 +73,8 @@ Fluxo padrão:
 ```txt
 issue -> branch -> commit -> push -> Pull Request -> merge -> issue fechada
 ```
+
+O PR deve usar `Closes #ID` quando resolver a issue.
 
 ## Disciplina de código
 
@@ -94,7 +95,7 @@ Antes de PR, o agente deve executar:
 
 ## Frontend Design e UX Engineering
 
-A camada frontend agora cobre UI visual, design system, UX engineering e implementação em stack moderna.
+A camada frontend cobre UI visual, design system, UX engineering e implementação em stack moderna.
 
 Skills principais:
 
@@ -163,6 +164,14 @@ Incluídos:
 .claude/templates/github/PULL_REQUEST_TEMPLATE.md
 ```
 
+Ao aplicar em um projeto real, você pode copiar esses templates para:
+
+```txt
+.github/ISSUE_TEMPLATE/feature.md
+.github/ISSUE_TEMPLATE/bug.md
+.github/PULL_REQUEST_TEMPLATE.md
+```
+
 ## Settings e hooks
 
 Configuração compartilhada:
@@ -179,17 +188,27 @@ Hooks incluídos:
 .claude/hooks/post-edit-reminder.py
 ```
 
+Eles protegem contra:
+
+- leitura/alteração de arquivos sensíveis;
+- commit direto em branch protegida;
+- push direto para `main` ou `master`;
+- comandos destrutivos de alto risco;
+- alterações sem lembrete de validação.
+
 ## Regra de arquitetura
 
 ```txt
 Claude principal = orquestrador soberano
 CLAUDE.md = instruções persistentes do projeto
-PROJECT_OBJECTIVE.md = visão fixa do produto
 GitHub Issues = backlog e pendências
 Pull Requests = entregas implementadas
+Commits = histórico técnico real
 Rules = instruções modulares por tópico
+Settings = permissões e hooks compartilhados
 Agents = especialistas executores/revisores
 Skills = procedimentos reutilizáveis
+Templates = padrões de issue e PR
 Coding Discipline = simplicidade, diff cirúrgico e critérios verificáveis
 Frontend Design = identidade visual, UX writing e qualidade estética de interface
 Frontend Design System = tokens, grids, tipografia, spacing, radius e componentes reutilizáveis
