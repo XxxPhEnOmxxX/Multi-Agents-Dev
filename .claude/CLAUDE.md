@@ -49,7 +49,7 @@ software-architect -> architecture, trade-offs, modules, migrations
 frontend-specialist -> UI, UX, responsive layout, design system, interface copy
 backend-specialist -> APIs, services, validation, persistence, jobs, integrations
 security-engineer -> auth, permissions, secrets, sensitive data, public APIs, CORS, headers
-aqa-engineer -> tests, acceptance criteria, GitHub Actions, CI, merge/release evidence
+qa-engineer -> tests, acceptance criteria, GitHub Actions, CI, merge/release evidence
 devops-engineer -> Docker, n8n, proxy, deploy, volumes, logs, backups, production ops
 ```
 
