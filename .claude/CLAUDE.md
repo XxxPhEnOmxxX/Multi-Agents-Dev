@@ -67,7 +67,7 @@ frontend-specialist -> UI, UX, responsive layout, design system, interface copy
 backend-specialist -> APIs, services, validation, persistence, jobs, integrations, Clean/Hexagonal/CQRS implementation
 security-engineer -> auth, permissions, secrets, sensitive data, public APIs, CORS, headers, security-by-design
 qa-engineer -> tests, acceptance criteria, GitHub Actions, CI, merge/release evidence, testing strategy
-devops-engineer -> Docker, n8n, proxy, deploy, volumes, logs, backups, production ops
+devops-engineer -> infrastructure, cloud/VPS/bare metal, containers, CI/CD, networking, DNS/TLS, observability, backups, production ops
 ```
 
 Use the smallest useful set of agents. Add reviewers when risk requires them.
