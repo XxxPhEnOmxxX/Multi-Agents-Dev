@@ -14,7 +14,7 @@ Use `orchestrating-agents` for full intake, issue strategy, delegation, permissi
 
 Use `smart-dispatch` for model/task routing and choosing the smallest useful agent team.
 
-Use architecture practice skills when the task touches design quality:
+Use architecture practice skills only when the task touches that practice:
 
 ```txt
 ddd-modeling -> domain language, bounded contexts, aggregates, invariants
@@ -24,8 +24,12 @@ cqrs -> command/query separation, read/write flows, idempotent commands
 code-quality -> maintainability, naming, cohesion, error handling
 security-by-design -> auth, permissions, secrets, validation, sensitive data
 testing-strategy -> domain/use-case/adapter/regression test planning
-capability-driven-integration -> optional ERP/API capabilities and module availability
 ```
+
+Do not preload every practice skill by default. Agents should preload only their primary operational skill and invoke extra skills on demand. Project-specific skills can be added later for a product domain, platform, vendor, or integration style.
+
+Use `.claude/template-usage.md` when cloning or adapting this template into a real project.
+Use `.claude/agent-skill-governance.md` when changing the template's agent topology, tool permissions, skill policy, or project adaptation rules.
 
 ## Non-negotiable rules
 

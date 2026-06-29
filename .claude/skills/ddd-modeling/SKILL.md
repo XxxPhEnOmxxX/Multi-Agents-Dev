@@ -33,26 +33,31 @@ Use this skill when the task touches:
 
 ## Modeling Rules
 
-- Use domain names, not database, UI, or vendor names.
+- Use domain names, not database, UI, framework, or vendor names.
 - An entity has identity and lifecycle.
 - A value object is defined by its attributes and should be immutable when practical.
-- An aggregate protects consistency boundaries.
+- An aggregate protects a consistency boundary.
 - A domain service exists only when behavior does not naturally belong to one entity or value object.
 - A domain event describes something that already happened in the business.
+- External payloads, database rows, HTTP DTOs, queue messages, and UI forms are not domain models by default.
 
-## ISP Field-Service Examples
+## Generic Examples
 
-- `WorkOrder` is an entity.
-- `Address` is a value object.
-- `OpticalSignal` is a value object.
-- `FieldVisit` can be an aggregate when it owns checklist, evidence, signature, and completion rules.
-- `WorkOrderCompleted` is a domain event.
-- `ErpTicketPayload` is not a domain concept.
+| Concept | Example | Why |
+| --- | --- | --- |
+| Entity | `Order`, `UserAccount`, `Subscription`, `Invoice` | Has identity and lifecycle. |
+| Value object | `Money`, `Address`, `Email`, `DateRange` | Defined by attributes, not identity. |
+| Aggregate | `Order` owning `OrderItem` and payment eligibility rules | Protects consistency for related changes. |
+| Domain service | `PricingPolicy`, `EligibilityChecker` | Represents domain behavior that does not belong naturally to one entity. |
+| Domain event | `OrderPlaced`, `PaymentReceived`, `SubscriptionCancelled` | Describes a business fact that already happened. |
+| External concept | `StripeWebhookPayload`, `ErpTicketPayload`, `DatabaseOrderRow` | Belongs to integration or persistence, not core domain language. |
 
 ## Expected Output
 
 - Bounded context identified.
 - Domain concepts named.
+- Ubiquitous language clarified.
 - Invariants listed.
 - Aggregate boundary suggested.
+- Domain events identified.
 - External concepts isolated from the domain.
