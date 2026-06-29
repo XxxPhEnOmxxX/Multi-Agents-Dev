@@ -21,6 +21,7 @@ Based on the token-saving approach:
 7. Preload only the primary skill per subagent.
 8. Invoke architecture/practice skills only on demand.
 9. Keep project-specific domains out of the base template.
+10. Keep review/planning agents read-oriented by default.
 ```
 
 ## Current repository state
@@ -55,6 +56,7 @@ Specialists:
 - .claude/agents/devops-engineer.md
 
 Reference documents not auto-loaded unless read:
+- .claude/agent-skill-governance.md
 - .claude/architecture-skill-matrix.md
 - .claude/context-audit.md
 ```
@@ -71,7 +73,7 @@ The orchestrator kernel should only contain:
 - short agent routing map;
 - sensitive access gate;
 - completion report format;
-- pointers to skills.
+- pointers to skills and governance references.
 ```
 
 ## Skill preload policy
@@ -103,6 +105,24 @@ This avoids loading multiple long practice guides into every subagent context wh
 
 Project-specific skills should be added only when the repository has a concrete domain, vendor, platform, integration style, or team convention that needs repeatable guidance.
 
+## Tool permission policy
+
+Review/planning agents are read-oriented by default:
+
+```txt
+software-architect -> Read, Glob, Grep, Bash, Skill
+security-engineer -> Read, Glob, Grep, Bash, Skill
+qa-engineer -> Read, Glob, Grep, Bash, Skill
+```
+
+Implementation agents keep edit/write tools because their role is to apply scoped changes after planning and delegation:
+
+```txt
+backend-specialist
+frontend-specialist
+devops-engineer
+```
+
 ## Reduction applied
 
 `.claude/CLAUDE.md` remains a compact kernel.
@@ -114,6 +134,7 @@ Detailed rules remain in project skills and supporting reference files, includin
 .claude/skills/orchestrating-agents/references/
 .claude/skills/smart-dispatch/SKILL.md
 .claude/skills/*/SKILL.md
+.claude/agent-skill-governance.md
 ```
 
 ## Architecture skill update
@@ -128,6 +149,12 @@ The distribution is documented in:
 .claude/architecture-skill-matrix.md
 ```
 
+Agent and skill change criteria are documented in:
+
+```txt
+.claude/agent-skill-governance.md
+```
+
 ## Ongoing rules
 
 ```txt
@@ -139,4 +166,5 @@ The distribution is documented in:
 - Keep context audit updated when adding always-loaded files or changing the skill/agent topology.
 - Keep subagent preloaded skills minimal; use on-demand skills for specialized practice guidance.
 - Keep the base template generic; add domain-specific skills only inside project adaptations.
+- Keep review/planning agents read-oriented unless a project adaptation explicitly changes their role.
 ```
