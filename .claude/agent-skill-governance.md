@@ -12,9 +12,9 @@ The base template should stay small, reusable, and domain-neutral. Project-speci
 
 | Create or update | Use when | Avoid when |
 | --- | --- | --- |
-| Agent | The work needs a recurring role, independent judgment, tool boundaries, review responsibility, or a distinct output format. | The need is only a reusable checklist, coding convention, or narrow workflow. |
+| Agent | The work needs a recurring role, independent judgment, tool boundaries, review responsibility, or a distinct output format. | The need is only a reusable checklist, coding convention, platform convention, or narrow workflow. |
 | Skill | The work is a repeatable practice, workflow, standard, or knowledge package that one or more agents can invoke on demand. | The work requires a persistent role, separate permissions, or independent responsibility. |
-| CLAUDE.md | The rule is global, always relevant, and affects orchestration or safety for every task. | The content is long, domain-specific, or only useful for a subset of tasks. |
+| CLAUDE.md | The rule is global, always relevant, and affects orchestration or safety for every task. | The content is long, domain-specific, platform-specific, or only useful for a subset of tasks. |
 | Reference doc | The content is useful for maintainers but should not be loaded every session. | The rule must always be followed during execution. |
 
 ## Base Template Boundary
@@ -23,6 +23,7 @@ The base template may include:
 
 - universal software engineering roles;
 - universal architecture and quality practices;
+- generic infrastructure and operational safety practices;
 - generic orchestration and safety rules;
 - token/context economy guidance;
 - documentation for maintaining the agent topology.
@@ -33,6 +34,8 @@ The base template should not include:
 - telecom-specific skills;
 - vendor-specific workflows;
 - company-specific deploy commands;
+- Docker-only or n8n-only assumptions;
+- cloud-provider-specific commands;
 - product-specific terminology;
 - integration behavior that only applies to one project type.
 
@@ -72,6 +75,25 @@ Guidelines:
 - Prefer one clear responsibility per skill.
 - Do not preload a skill in an agent unless the agent needs it on most runs.
 
+## Infrastructure Extension Rule
+
+Keep the base `devops-engineer` and `managing-infrastructure` skill platform-neutral.
+
+Add platform-specific infrastructure guidance only after cloning the template into a real project.
+
+Examples of project-clone skills:
+
+```txt
+kubernetes-release-operations
+terraform-change-review
+aws-production-ops
+docker-compose-production-ops
+n8n-automation-operations
+proxmox-operations
+```
+
+Promote infrastructure guidance back to the base template only if it applies across many infrastructure models.
+
 ## Change Checklist
 
 Before merging changes to the multi-agent template, verify:
@@ -83,6 +105,6 @@ Before merging changes to the multi-agent template, verify:
 - Is a new agent truly a recurring role instead of a skill?
 - Is a new skill reusable across multiple project types?
 - Are tool permissions no broader than the agent needs?
-- Are project-specific examples avoided or clearly marked as examples?
+- Are domain-specific or platform-specific examples avoided or clearly marked as project-clone examples?
 - Are validation and rollback notes documented in the PR?
 ```

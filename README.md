@@ -4,7 +4,7 @@ A reusable Claude Code multi-agent template for software development work.
 
 This repository provides a generic agent and skill structure that can be cloned into different software projects, then adapted with project-specific rules, skills, and agents only when the real project needs them.
 
-The template is intentionally domain-neutral. It is not tied to ERP systems, telecom systems, SaaS products, marketplaces, mobile apps, or any specific company workflow.
+The template is intentionally domain-neutral. It is not tied to ERP systems, telecom systems, SaaS products, marketplaces, mobile apps, infrastructure vendors, automation platforms, or any specific company workflow.
 
 ## Core Idea
 
@@ -57,7 +57,7 @@ The template keeps the number of agents stable. Add a new agent only when a proj
 | `frontend-specialist` | UI, UX, responsive behavior, accessibility, design systems, frontend review. | Implementation |
 | `security-engineer` | Defensive security review, threat modeling, auth, secrets, sensitive data, release risk. | Review/planning |
 | `qa-engineer` | Test strategy, acceptance criteria, CI diagnosis, regression analysis, release readiness. | Review/planning |
-| `devops-engineer` | Docker, n8n, infrastructure, reverse proxy, deploys, logs, backups, production ops. | Implementation |
+| `devops-engineer` | Infrastructure, cloud/VPS/bare metal, containers, orchestration, CI/CD, networking, DNS/TLS, observability, backups, production ops. | Implementation |
 
 ## Included Skills
 
@@ -72,7 +72,7 @@ Each agent preloads only one primary operational skill. Architecture and practic
 | `designing-frontend` | Product UI, UX, responsive behavior, interface states, design system consistency. |
 | `securing-apps` | Defensive application security review and validation. |
 | `qa-github-actions` | QA workflow, CI evidence, GitHub Actions checks, release readiness. |
-| `managing-docker-n8n-infra` | Docker, n8n, proxy, deploy, volume, log, and operational workflows. |
+| `managing-infrastructure` | Infrastructure, deployment, runtime, CI/CD, networking, secrets, backups, observability, and production operations. |
 | `ddd-modeling` | Domain language, bounded contexts, aggregates, value objects, invariants. |
 | `clean-architecture` | Layer ownership and dependency direction. |
 | `hexagonal-architecture` | Ports, adapters, gateways, repositories, and anti-corruption layers. |
@@ -128,7 +128,7 @@ Good candidates for the base template:
 
 - universal software engineering roles;
 - reusable architecture practices;
-- security, testing, and quality practices;
+- security, testing, infrastructure, and quality practices;
 - generic GitHub issue and PR workflow;
 - generic context economy rules;
 - generic agent and skill governance.
@@ -138,6 +138,8 @@ Poor candidates for the base template:
 - ERP-specific instructions;
 - telecom-specific instructions;
 - payment-provider-specific instructions;
+- Docker-only or n8n-only operational assumptions;
+- cloud-vendor-specific deployment commands;
 - company-specific deployment commands;
 - project-specific environment variables;
 - product-specific domain language;
@@ -157,6 +159,8 @@ mobile-release-checklist
 accessibility-review
 legacy-migration-plan
 observability-review
+kubernetes-release-operations
+n8n-automation-operations
 ```
 
 Avoid adding a skill when the behavior is only a one-time note or a project-specific instruction better stored in documentation.
@@ -173,6 +177,7 @@ compliance-reviewer
 data-engineer
 telecom-network-specialist
 ai-rag-engineer
+platform-engineer
 ```
 
 Avoid adding an agent when a skill or short instruction is enough.
