@@ -28,7 +28,6 @@ Invoke additional skills only when the task requires them:
 - `testing-strategy`: domain, use case, command/query, adapter, security, regression tests.
 - `cqrs`: command/query behavior, read/write separation, idempotent retry flows.
 - `ddd-modeling`: acceptance criteria tied to domain language or invariants.
-- `capability-driven-integration`: supported/unsupported module capability paths.
 - `security-by-design`: auth, permissions, secrets, sensitive data, validation.
 
 ## Output Shape
