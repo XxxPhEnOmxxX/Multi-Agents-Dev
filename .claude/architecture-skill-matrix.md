@@ -7,7 +7,7 @@ Related optimization: #5
 
 This repository keeps the number of agents stable and distributes architecture practices through skills.
 
-Skills represent engineering practices, not one-off tasks. Agents keep their specialist roles and invoke extra skills only when the task requires them.
+Skills represent reusable engineering practices, not one-off tasks or project-specific domains. Agents keep their specialist roles and invoke extra skills only when the task requires them.
 
 ## Token Economy Rule
 
@@ -15,7 +15,9 @@ Each agent preloads only its primary operational skill through the `skills:` fro
 
 Architecture and practice skills stay available on demand through the `Skill` tool instead of being preloaded into every subagent context.
 
-This keeps subagent context smaller while preserving access to DDD, Clean Architecture, Hexagonal Architecture, CQRS, security, testing, and capability guidance when needed.
+This keeps subagent context smaller while preserving access to DDD, Clean Architecture, Hexagonal Architecture, CQRS, security, testing, and code quality guidance when needed.
+
+Project-specific skills can be added later for a product domain, vendor, platform, integration pattern, or team convention.
 
 ## Practice Skills
 
@@ -28,7 +30,6 @@ This keeps subagent context smaller while preserving access to DDD, Clean Archit
 | `code-quality` | Engineering quality | Improving maintainability, naming, cohesion, error handling, and type safety. |
 | `security-by-design` | Secure engineering | Reviewing auth, authorization, secrets, logs, validation, and sensitive data boundaries. |
 | `testing-strategy` | Testing practice | Designing tests for domain rules, use cases, handlers, adapters, and regressions. |
-| `capability-driven-integration` | Integration architecture | Modeling ERP/API support, optional features, fallback behavior, and module availability. |
 
 ## Preloaded Skill by Agent
 
@@ -45,11 +46,11 @@ This keeps subagent context smaller while preserving access to DDD, Clean Archit
 
 | Agent | On-Demand Skills |
 | --- | --- |
-| `software-architect` | `ddd-modeling`, `clean-architecture`, `hexagonal-architecture`, `cqrs`, `capability-driven-integration`, `security-by-design`, `testing-strategy` |
-| `backend-specialist` | `clean-architecture`, `hexagonal-architecture`, `cqrs`, `code-quality`, `testing-strategy`, `capability-driven-integration`, `security-by-design` |
-| `frontend-specialist` | `code-quality`, `capability-driven-integration`, `security-by-design`, `testing-strategy` |
+| `software-architect` | `ddd-modeling`, `clean-architecture`, `hexagonal-architecture`, `cqrs`, `security-by-design`, `testing-strategy` |
+| `backend-specialist` | `clean-architecture`, `hexagonal-architecture`, `cqrs`, `code-quality`, `testing-strategy`, `security-by-design` |
+| `frontend-specialist` | `code-quality`, `security-by-design`, `testing-strategy` |
 | `security-engineer` | `security-by-design`, `clean-architecture`, `hexagonal-architecture`, `code-quality`, `testing-strategy` |
-| `qa-engineer` | `testing-strategy`, `cqrs`, `ddd-modeling`, `capability-driven-integration`, `security-by-design` |
+| `qa-engineer` | `testing-strategy`, `cqrs`, `ddd-modeling`, `security-by-design` |
 | `devops-engineer` | `security-by-design`, `code-quality`, `testing-strategy`, `hexagonal-architecture` |
 
 ## Operating Rule
