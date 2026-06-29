@@ -22,6 +22,7 @@ Based on the token-saving approach:
 8. Invoke architecture/practice skills only on demand.
 9. Keep project-specific domains out of the base template.
 10. Keep review/planning agents read-oriented by default.
+11. Keep full template documentation in reference files, not CLAUDE.md.
 ```
 
 ## Current repository state
@@ -29,6 +30,9 @@ Based on the token-saving approach:
 ```txt
 Always-loaded project orchestrator:
 - .claude/CLAUDE.md
+
+Human entrypoint:
+- README.md
 
 Detailed behavior loaded on demand:
 - .claude/skills/orchestrating-agents/
@@ -56,6 +60,7 @@ Specialists:
 - .claude/agents/devops-engineer.md
 
 Reference documents not auto-loaded unless read:
+- .claude/template-usage.md
 - .claude/agent-skill-governance.md
 - .claude/architecture-skill-matrix.md
 - .claude/context-audit.md
@@ -123,6 +128,18 @@ frontend-specialist
 devops-engineer
 ```
 
+## Documentation policy
+
+Full documentation belongs in reference files, not in `.claude/CLAUDE.md`.
+
+```txt
+README.md -> human entrypoint and quick-start guide
+.claude/template-usage.md -> complete usage and adaptation guide
+.claude/agent-skill-governance.md -> maintenance and extension rules
+.claude/architecture-skill-matrix.md -> agent, skill, and permission matrix
+.claude/context-audit.md -> context economy record
+```
+
 ## Reduction applied
 
 `.claude/CLAUDE.md` remains a compact kernel.
@@ -134,6 +151,7 @@ Detailed rules remain in project skills and supporting reference files, includin
 .claude/skills/orchestrating-agents/references/
 .claude/skills/smart-dispatch/SKILL.md
 .claude/skills/*/SKILL.md
+.claude/template-usage.md
 .claude/agent-skill-governance.md
 ```
 
@@ -155,6 +173,13 @@ Agent and skill change criteria are documented in:
 .claude/agent-skill-governance.md
 ```
 
+Template usage and project adaptation are documented in:
+
+```txt
+README.md
+.claude/template-usage.md
+```
+
 ## Ongoing rules
 
 ```txt
@@ -167,4 +192,5 @@ Agent and skill change criteria are documented in:
 - Keep subagent preloaded skills minimal; use on-demand skills for specialized practice guidance.
 - Keep the base template generic; add domain-specific skills only inside project adaptations.
 - Keep review/planning agents read-oriented unless a project adaptation explicitly changes their role.
+- Keep full template documentation in README.md and reference docs instead of CLAUDE.md.
 ```
