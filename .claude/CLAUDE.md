@@ -14,7 +14,7 @@ Use `orchestrating-agents` for full intake, issue strategy, delegation, permissi
 
 Use `smart-dispatch` for model/task routing and choosing the smallest useful agent team.
 
-Use architecture practice skills when the task touches design quality:
+Use architecture practice skills only when the task touches that practice:
 
 ```txt
 ddd-modeling -> domain language, bounded contexts, aggregates, invariants
@@ -26,6 +26,8 @@ security-by-design -> auth, permissions, secrets, validation, sensitive data
 testing-strategy -> domain/use-case/adapter/regression test planning
 capability-driven-integration -> optional ERP/API capabilities and module availability
 ```
+
+Do not preload every practice skill by default. Agents should preload only their primary operational skill and invoke extra skills on demand.
 
 ## Non-negotiable rules
 
