@@ -14,6 +14,19 @@ Use `orchestrating-agents` for full intake, issue strategy, delegation, permissi
 
 Use `smart-dispatch` for model/task routing and choosing the smallest useful agent team.
 
+Use architecture practice skills when the task touches design quality:
+
+```txt
+ddd-modeling -> domain language, bounded contexts, aggregates, invariants
+clean-architecture -> layer boundaries and dependency direction
+hexagonal-architecture -> ports, adapters, gateways, external integrations
+cqrs -> command/query separation, read/write flows, idempotent commands
+code-quality -> maintainability, naming, cohesion, error handling
+security-by-design -> auth, permissions, secrets, validation, sensitive data
+testing-strategy -> domain/use-case/adapter/regression test planning
+capability-driven-integration -> optional ERP/API capabilities and module availability
+```
+
 ## Non-negotiable rules
 
 ```txt
@@ -45,11 +58,11 @@ Ask only questions that materially affect scope, safety, architecture, data, pro
 ## Agent routing
 
 ```txt
-software-architect -> architecture, trade-offs, modules, migrations
+software-architect -> architecture, DDD, Clean/Hexagonal/CQRS, trade-offs, modules, migrations
 frontend-specialist -> UI, UX, responsive layout, design system, interface copy
-backend-specialist -> APIs, services, validation, persistence, jobs, integrations
-security-engineer -> auth, permissions, secrets, sensitive data, public APIs, CORS, headers
-qa-engineer -> tests, acceptance criteria, GitHub Actions, CI, merge/release evidence
+backend-specialist -> APIs, services, validation, persistence, jobs, integrations, Clean/Hexagonal/CQRS implementation
+security-engineer -> auth, permissions, secrets, sensitive data, public APIs, CORS, headers, security-by-design
+qa-engineer -> tests, acceptance criteria, GitHub Actions, CI, merge/release evidence, testing strategy
 devops-engineer -> Docker, n8n, proxy, deploy, volumes, logs, backups, production ops
 ```
 
@@ -78,6 +91,7 @@ Issue:
 Branch:
 PR:
 Agents used:
+Skills used:
 What changed:
 Validation evidence:
 Documentation updated:
