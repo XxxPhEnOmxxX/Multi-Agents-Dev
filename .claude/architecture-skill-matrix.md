@@ -9,6 +9,8 @@ This repository keeps the number of agents stable and distributes architecture p
 
 Skills represent reusable engineering practices, not one-off tasks or project-specific domains. Agents keep their specialist roles and invoke extra skills only when the task requires them.
 
+Use `.claude/agent-skill-governance.md` before changing agent count, tool permissions, skill preload policy, or template adaptation rules.
+
 ## Token Economy Rule
 
 Each agent preloads only its primary operational skill through the `skills:` frontmatter.
@@ -41,6 +43,17 @@ Project-specific skills can be added later for a product domain, vendor, platfor
 | `security-engineer` | `securing-apps` |
 | `qa-engineer` | `qa-github-actions` |
 | `devops-engineer` | `managing-docker-n8n-infra` |
+
+## Tool Permission Tier by Agent
+
+| Agent | Tier | Tools |
+| --- | --- | --- |
+| `software-architect` | Review/planning | `Read`, `Glob`, `Grep`, `Bash`, `Skill` |
+| `security-engineer` | Review/planning | `Read`, `Glob`, `Grep`, `Bash`, `Skill` |
+| `qa-engineer` | Review/planning | `Read`, `Glob`, `Grep`, `Bash`, `Skill` |
+| `backend-specialist` | Implementation | Read/search, shell, edit/write, skills |
+| `frontend-specialist` | Implementation | Read/search, shell, edit/write, skills |
+| `devops-engineer` | Implementation | Read/search, shell, edit/write, skills |
 
 ## On-Demand Practice Skills by Agent
 
