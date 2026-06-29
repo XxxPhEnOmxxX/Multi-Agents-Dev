@@ -18,6 +18,8 @@ Based on the token-saving approach:
 4. Avoid duplicated instructions.
 5. Use smart dispatch for model/agent routing.
 6. Keep issue/PR workflow for continuity.
+7. Preload only the primary skill per subagent.
+8. Invoke architecture/practice skills only on demand.
 ```
 
 ## Current repository state
@@ -72,6 +74,34 @@ The orchestrator kernel should only contain:
 - pointers to skills.
 ```
 
+## Skill preload policy
+
+Each subagent should preload only its primary operational skill through frontmatter `skills:`.
+
+```txt
+software-architect -> architecting-systems
+frontend-specialist -> designing-frontend
+backend-specialist -> building-backend-apis
+security-engineer -> securing-apps
+qa-engineer -> qa-github-actions
+devops-engineer -> managing-docker-n8n-infra
+```
+
+Architecture/practice skills stay available on demand through the `Skill` tool:
+
+```txt
+ddd-modeling
+clean-architecture
+hexagonal-architecture
+cqrs
+code-quality
+security-by-design
+testing-strategy
+capability-driven-integration
+```
+
+This avoids loading multiple long practice guides into every subagent context while preserving specialist access when the task requires it.
+
 ## Reduction applied
 
 `.claude/CLAUDE.md` remains a compact kernel.
@@ -89,7 +119,7 @@ Detailed rules remain in project skills and supporting reference files, includin
 
 Issue #3 adds practice-based architecture skills without increasing the number of agents.
 
-These skills are project skills under `.claude/skills/`, so Claude Code can load them on demand instead of keeping their full content in `.claude/CLAUDE.md`.
+These skills are project skills under `.claude/skills/`, so Claude Code can load them on demand instead of keeping their full content in `.claude/CLAUDE.md` or every subagent context.
 
 The distribution is documented in:
 
@@ -106,4 +136,5 @@ The distribution is documented in:
 - Prefer skills/references/examples for detailed behavior.
 - Avoid prompt hooks unless the benefit clearly beats the extra API call cost.
 - Keep context audit updated when adding always-loaded files or changing the skill/agent topology.
+- Keep subagent preloaded skills minimal; use on-demand skills for specialized practice guidance.
 ```
