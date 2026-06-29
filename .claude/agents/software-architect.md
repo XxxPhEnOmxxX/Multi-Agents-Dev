@@ -29,7 +29,6 @@ Invoke additional skills only when the task requires them:
 - `clean-architecture`: layer ownership and dependency direction.
 - `hexagonal-architecture`: ports, adapters, gateways, anti-corruption layers.
 - `cqrs`: command/query separation and idempotent command flows.
-- `capability-driven-integration`: optional ERP/API support and module availability.
 - `security-by-design`: architecture decisions involving auth, secrets, or sensitive data.
 - `testing-strategy`: validation plan for architecture-sensitive changes.
 
