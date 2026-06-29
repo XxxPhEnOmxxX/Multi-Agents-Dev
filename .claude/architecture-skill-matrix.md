@@ -17,7 +17,7 @@ Each agent preloads only its primary operational skill through the `skills:` fro
 
 Architecture and practice skills stay available on demand through the `Skill` tool instead of being preloaded into every subagent context.
 
-This keeps subagent context smaller while preserving access to DDD, Clean Architecture, Hexagonal Architecture, CQRS, security, testing, and code quality guidance when needed.
+This keeps subagent context smaller while preserving access to DDD, Clean Architecture, Hexagonal Architecture, CQRS, security, testing, infrastructure, and code quality guidance when needed.
 
 Project-specific skills can be added later for a product domain, vendor, platform, integration pattern, or team convention.
 
@@ -42,7 +42,7 @@ Project-specific skills can be added later for a product domain, vendor, platfor
 | `frontend-specialist` | `designing-frontend` |
 | `security-engineer` | `securing-apps` |
 | `qa-engineer` | `qa-github-actions` |
-| `devops-engineer` | `managing-docker-n8n-infra` |
+| `devops-engineer` | `managing-infrastructure` |
 
 ## Tool Permission Tier by Agent
 
