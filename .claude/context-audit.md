@@ -20,6 +20,7 @@ Based on the token-saving approach:
 6. Keep issue/PR workflow for continuity.
 7. Preload only the primary skill per subagent.
 8. Invoke architecture/practice skills only on demand.
+9. Keep project-specific domains out of the base template.
 ```
 
 ## Current repository state
@@ -44,7 +45,6 @@ Detailed behavior loaded on demand:
 - .claude/skills/code-quality/
 - .claude/skills/security-by-design/
 - .claude/skills/testing-strategy/
-- .claude/skills/capability-driven-integration/
 
 Specialists:
 - .claude/agents/software-architect.md
@@ -97,10 +97,11 @@ cqrs
 code-quality
 security-by-design
 testing-strategy
-capability-driven-integration
 ```
 
 This avoids loading multiple long practice guides into every subagent context while preserving specialist access when the task requires it.
+
+Project-specific skills should be added only when the repository has a concrete domain, vendor, platform, integration style, or team convention that needs repeatable guidance.
 
 ## Reduction applied
 
@@ -119,7 +120,7 @@ Detailed rules remain in project skills and supporting reference files, includin
 
 Issue #3 adds practice-based architecture skills without increasing the number of agents.
 
-Issue #5 optimizes those skills so they are available on demand instead of being preloaded into every subagent context.
+Issue #5 optimizes those skills so they are available on demand instead of being preloaded into every subagent context, and keeps the base template free of domain-specific skills.
 
 The distribution is documented in:
 
@@ -137,4 +138,5 @@ The distribution is documented in:
 - Avoid prompt hooks unless the benefit clearly beats the extra API call cost.
 - Keep context audit updated when adding always-loaded files or changing the skill/agent topology.
 - Keep subagent preloaded skills minimal; use on-demand skills for specialized practice guidance.
+- Keep the base template generic; add domain-specific skills only inside project adaptations.
 ```
