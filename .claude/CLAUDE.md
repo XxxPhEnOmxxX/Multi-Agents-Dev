@@ -24,10 +24,9 @@ cqrs -> command/query separation, read/write flows, idempotent commands
 code-quality -> maintainability, naming, cohesion, error handling
 security-by-design -> auth, permissions, secrets, validation, sensitive data
 testing-strategy -> domain/use-case/adapter/regression test planning
-capability-driven-integration -> optional ERP/API capabilities and module availability
 ```
 
-Do not preload every practice skill by default. Agents should preload only their primary operational skill and invoke extra skills on demand.
+Do not preload every practice skill by default. Agents should preload only their primary operational skill and invoke extra skills on demand. Project-specific skills can be added later for a product domain, platform, vendor, or integration style.
 
 ## Non-negotiable rules
 
