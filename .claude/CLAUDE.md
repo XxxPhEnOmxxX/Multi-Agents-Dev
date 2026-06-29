@@ -28,6 +28,7 @@ testing-strategy -> domain/use-case/adapter/regression test planning
 
 Do not preload every practice skill by default. Agents should preload only their primary operational skill and invoke extra skills on demand. Project-specific skills can be added later for a product domain, platform, vendor, or integration style.
 
+Use `.claude/template-usage.md` when cloning or adapting this template into a real project.
 Use `.claude/agent-skill-governance.md` when changing the template's agent topology, tool permissions, skill policy, or project adaptation rules.
 
 ## Non-negotiable rules
