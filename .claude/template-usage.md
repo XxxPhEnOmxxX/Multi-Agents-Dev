@@ -6,7 +6,7 @@ Issue: #5
 
 This guide explains how to use this repository as a reusable Claude Code multi-agent template for software development projects.
 
-The goal is not to predict every possible project domain. The goal is to provide a strong generic foundation that can be cloned into a real project and then adapted with project-specific skills, agents, references, and rules.
+The goal is not to predict every possible project domain, platform, or infrastructure stack. The goal is to provide a strong generic foundation that can be cloned into a real project and then adapted with project-specific skills, agents, references, and rules.
 
 ## Design Philosophy
 
@@ -35,7 +35,7 @@ This template is:
 - a reusable Claude Code development team structure;
 - a generic multi-agent setup for software engineering;
 - a context-conscious organization of agents and skills;
-- a foundation for DDD, Clean Architecture, Hexagonal Architecture, CQRS, security, QA, frontend, backend, and DevOps work;
+- a foundation for DDD, Clean Architecture, Hexagonal Architecture, CQRS, security, QA, frontend, backend, infrastructure, and DevOps work;
 - a starting point that should be adapted after being cloned into a real project.
 
 ## What This Template Is Not
@@ -44,7 +44,7 @@ This template is not:
 
 - a finished architecture for every project;
 - a replacement for project-specific documentation;
-- a place for ERP, telecom, finance, mobile, or vendor-specific rules;
+- a place for ERP, telecom, finance, mobile, vendor, cloud, Docker, Kubernetes, or n8n-specific rules;
 - a place to preload every useful skill;
 - a reason to create an agent for every specialization;
 - a substitute for human review and validation.
@@ -81,6 +81,7 @@ Before adapting anything, inspect the target project:
 - test commands;
 - build commands;
 - deployment model;
+- runtime and infrastructure platform;
 - architecture style;
 - existing docs;
 - security boundaries;
@@ -102,6 +103,7 @@ Good additions:
 - Required package manager.
 - Required test command.
 - Required build command.
+- Required deployment validation summary.
 - Project-wide forbidden operations.
 - Required branch and PR policy.
 - High-level architecture summary.
@@ -115,6 +117,7 @@ Bad additions:
 - Full database schema explanations.
 - Full API documentation.
 - Vendor manuals.
+- Cloud provider manuals.
 - Large examples.
 - Secrets or credentials.
 - Long troubleshooting logs.
@@ -144,6 +147,8 @@ Examples:
 .claude/skills/legacy-database-migration/
 .claude/skills/observability-review/
 .claude/skills/erp-adapter-integration/
+.claude/skills/kubernetes-release-operations/
+.claude/skills/n8n-automation-operations/
 ```
 
 ### 5. Add project-specific agents only when a real role appears
@@ -168,6 +173,7 @@ compliance-reviewer
 data-engineer
 telecom-network-specialist
 ai-rag-engineer
+platform-engineer
 ```
 
 Do not create a new agent when a skill is enough.
@@ -291,16 +297,15 @@ This agent is read-oriented by default. It should not directly edit files in the
 Use for:
 
 ```txt
-- Docker;
-- Docker Compose;
-- n8n;
-- reverse proxy;
-- deployment;
-- volumes;
-- networks;
-- logs;
-- backups;
-- production operations.
+- infrastructure design and operation;
+- cloud, VPS, bare metal, container, orchestrator, serverless, or hybrid runtime;
+- CI/CD pipelines;
+- deployments and rollbacks;
+- DNS, TLS, proxy, ingress, ports, firewall, and network boundaries;
+- secrets and configuration management;
+- logs, metrics, tracing, alerts, health checks, and observability;
+- backups, restores, persistence, and disaster recovery;
+- production troubleshooting and reliability.
 ```
 
 Default behavior:
@@ -308,6 +313,8 @@ Default behavior:
 ```txt
 Implement scoped infrastructure changes with explicit safety gates.
 ```
+
+Docker, Kubernetes, n8n, AWS, Azure, GCP, Proxmox, VPS, bare metal, Terraform, Ansible, and other platforms are possible project-specific concerns. They should not define the base agent's identity.
 
 ## Skill Loading Strategy
 
@@ -331,7 +338,7 @@ This keeps subagent context smaller while preserving access to specialized pract
 | `frontend-specialist` | `designing-frontend` |
 | `security-engineer` | `securing-apps` |
 | `qa-engineer` | `qa-github-actions` |
-| `devops-engineer` | `managing-docker-n8n-infra` |
+| `devops-engineer` | `managing-infrastructure` |
 
 ## On-Demand Practice Skills
 
@@ -376,7 +383,7 @@ Use the smallest useful set of agents.
 | Frontend implementation | `frontend-specialist` |
 | Security-sensitive change | `security-engineer` plus relevant executor |
 | Test planning or CI failure | `qa-engineer` |
-| Docker, deploy, n8n, proxy | `devops-engineer` |
+| Infrastructure, deployment, runtime, CI/CD, observability, backups, production ops | `devops-engineer` |
 | Full-stack feature | `software-architect`, `backend-specialist`, `frontend-specialist`, `qa-engineer` as needed |
 | High-risk release | `qa-engineer`, `security-engineer`, relevant executor |
 
@@ -395,6 +402,7 @@ Use hexagonal-architecture when adding an external integration.
 Use cqrs when separating writes from reads.
 Use security-by-design when auth or sensitive data is involved.
 Use testing-strategy when deciding coverage and validation evidence.
+Use managing-infrastructure when deploy, runtime, CI/CD, networking, secrets, backups, or production operations are involved.
 ```
 
 Do not use a skill just because it exists. Use it when it changes the quality of the answer or implementation.
@@ -417,6 +425,7 @@ Examples:
 | Review every payment integration for provider-specific edge cases | Skill | Repeatable workflow used by backend and security agents. |
 | Mobile app development across many tasks | Agent | Recurring role with distinct expertise. |
 | Project deploy commands | Reference doc or CLAUDE.md summary | Detailed commands should not bloat CLAUDE.md. |
+| Kubernetes release workflow for a specific project | Skill | Platform-specific repeatable workflow in the project clone. |
 | Rule that all tasks need a PR | CLAUDE.md | Always relevant. |
 | Domain glossary | Reference doc or DDD skill extension | Useful on demand, not always needed. |
 
@@ -476,7 +485,7 @@ scripts/* -> deterministic helpers when useful
 Avoid:
 
 ```txt
-One huge SKILL.md containing every example, every edge case, every domain glossary, and every vendor detail.
+One huge SKILL.md containing every example, every edge case, every domain glossary, every vendor detail, and every platform command.
 ```
 
 ## Adapting the Template for Project Types
@@ -561,6 +570,25 @@ Potential new agent only if recurring:
 ai-rag-engineer
 ```
 
+### Platform, cloud, or automation-heavy project
+
+Possible additions after clone:
+
+```txt
+.claude/skills/kubernetes-release-operations/
+.claude/skills/terraform-change-review/
+.claude/skills/aws-production-ops/
+.claude/skills/n8n-automation-operations/
+.claude/skills/docker-compose-production-ops/
+```
+
+Potential new agent only if recurring:
+
+```txt
+platform-engineer
+site-reliability-engineer
+```
+
 ## Adapting CLAUDE.md After Clone
 
 When adapting `.claude/CLAUDE.md`, keep it short.
@@ -591,7 +619,7 @@ Example project-specific addition:
 Bad project-specific addition:
 
 ```txt
-A 400-line explanation of every route, database table, status code, and vendor payload.
+A 400-line explanation of every route, database table, status code, vendor payload, Kubernetes object, and cloud console procedure.
 ```
 
 Use references for detailed content.
@@ -606,7 +634,7 @@ Before adding content, ask:
 - Must this be loaded for every task?
 - Can this be discovered on demand?
 - Is this a repeatable workflow?
-- Is this a domain detail?
+- Is this a domain or platform detail?
 - Is this better as a skill, reference, or README?
 ```
 
@@ -646,6 +674,34 @@ These can apply scoped changes after planning.
 
 Do not broaden permissions just because it is convenient. Broaden permissions only when the project adaptation explicitly changes the agent role.
 
+## Infrastructure-Specific Adaptation Rule
+
+The base template's DevOps guidance must remain platform-neutral.
+
+Keep generic in the base:
+
+```txt
+- infrastructure safety;
+- CI/CD validation;
+- secrets handling;
+- networking and TLS concepts;
+- observability;
+- backups and rollback;
+- production troubleshooting by layer.
+```
+
+Move to project-specific skills after clone:
+
+```txt
+- exact AWS/Azure/GCP commands;
+- Kubernetes namespace and Helm conventions;
+- Docker Compose service names;
+- n8n workflow deployment rules;
+- Terraform workspace conventions;
+- Proxmox host assumptions;
+- company-specific deploy scripts.
+```
+
 ## Documentation Rules
 
 Use documentation intentionally.
@@ -665,7 +721,7 @@ Use this checklist before merging changes to the base template:
 
 ```txt
 - The change is generic enough for many software projects.
-- The change does not add domain-specific behavior to the base template.
+- The change does not add domain-specific or platform-specific behavior to the base template.
 - CLAUDE.md remains short.
 - No agent preloads more than one primary skill.
 - Review/planning agents remain read-oriented unless intentionally changed.
