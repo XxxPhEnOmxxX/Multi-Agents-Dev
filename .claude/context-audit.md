@@ -23,6 +23,7 @@ Based on the token-saving approach:
 9. Keep project-specific domains out of the base template.
 10. Keep review/planning agents read-oriented by default.
 11. Keep full template documentation in reference files, not CLAUDE.md.
+12. Keep DevOps/infrastructure guidance platform-neutral in the base template.
 ```
 
 ## Current repository state
@@ -41,7 +42,7 @@ Detailed behavior loaded on demand:
 - .claude/skills/building-backend-apis/
 - .claude/skills/securing-apps/
 - .claude/skills/qa-github-actions/
-- .claude/skills/managing-docker-n8n-infra/
+- .claude/skills/managing-infrastructure/
 - .claude/skills/architecting-systems/
 - .claude/skills/ddd-modeling/
 - .claude/skills/clean-architecture/
@@ -91,7 +92,7 @@ frontend-specialist -> designing-frontend
 backend-specialist -> building-backend-apis
 security-engineer -> securing-apps
 qa-engineer -> qa-github-actions
-devops-engineer -> managing-docker-n8n-infra
+devops-engineer -> managing-infrastructure
 ```
 
 Architecture/practice skills stay available on demand through the `Skill` tool:
@@ -192,5 +193,6 @@ README.md
 - Keep subagent preloaded skills minimal; use on-demand skills for specialized practice guidance.
 - Keep the base template generic; add domain-specific skills only inside project adaptations.
 - Keep review/planning agents read-oriented unless a project adaptation explicitly changes their role.
+- Keep DevOps/infrastructure guidance generic; add Docker, Kubernetes, n8n, cloud, or vendor-specific detail only in project clones.
 - Keep full template documentation in README.md and reference docs instead of CLAUDE.md.
 ```
