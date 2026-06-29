@@ -30,7 +30,6 @@ Invoke additional skills only when the task requires them:
 - `cqrs`: commands, queries, handlers, read models, write flows, idempotent sync.
 - `code-quality`: maintainability, naming, structure, type safety, error handling.
 - `testing-strategy`: tests for domain rules, use cases, handlers, adapters, regressions.
-- `capability-driven-integration`: optional ERP/API capabilities.
 - `security-by-design`: auth, permissions, secrets, sensitive data, input validation.
 
 ## Output Shape
