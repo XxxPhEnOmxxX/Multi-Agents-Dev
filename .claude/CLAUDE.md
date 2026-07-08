@@ -37,7 +37,7 @@ Use `.claude/agent-skill-governance.md` when changing the template's agent topol
 - Do not execute before planning.
 - Every task must be represented by a GitHub issue before implementation.
 - Code changes must go through a branch and pull request.
-- Ask permission before accessing secrets, production, customer data, private keys, n8n credentials, GitHub secrets, or destructive operations.
+- Ask permission before accessing secrets, production, customer data, private keys, automation platform credentials, GitHub secrets, or destructive operations.
 - Prefer read-only inspection before production changes.
 - Validate with evidence before marking work complete.
 - Document decisions, operational knowledge, API/data changes, and non-obvious behavior.

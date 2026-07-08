@@ -14,7 +14,7 @@ Protect business rules from frameworks, databases, UI, queues, HTTP clients, and
 - Domain: entities, value objects, domain services, domain events, invariants.
 - Application: use cases, commands, queries, ports, transaction boundaries, orchestration.
 - Interface: controllers, API routes, presenters, request validation, serializers.
-- Infrastructure: database, ORM, external APIs, ERP adapters, queues, storage, email, telemetry.
+- Infrastructure: database, ORM, external APIs, external system adapters, queues, storage, email, telemetry.
 
 ## Dependency Rule
 
@@ -38,7 +38,7 @@ Domain -> no outer layer
 
 ## Review Checklist
 
-- Domain imports no framework, ORM, HTTP, queue, or ERP code.
+- Domain imports no framework, ORM, HTTP, queue, or external system code.
 - Use cases depend on ports, not concrete adapters.
 - Controllers do not contain business rules.
 - Infrastructure implements application ports.

@@ -102,7 +102,7 @@ Who will operate the system after delivery?
 ## Deployment and infrastructure
 
 ```txt
-Where will the system run: VPS, cloud, Docker, Kubernetes, serverless, on-premise?
+Where will the system run: VPS, cloud, containers, Kubernetes, serverless, on-premise?
 What deployment process exists today?
 Are there environment constraints?
 Is horizontal scaling needed now or later?

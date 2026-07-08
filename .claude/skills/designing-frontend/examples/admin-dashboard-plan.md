@@ -5,7 +5,7 @@ Use this example as a shape, not as a template to copy blindly.
 ## Prompt
 
 ```txt
-Build a dashboard for an operations team that monitors customers, alerts, technicians, and pending tickets.
+Build a dashboard for an operations team that monitors customers, alerts, agents, and pending tickets.
 ```
 
 ## Design plan
@@ -64,7 +64,7 @@ What feels generic?
 A basic metric card row could be generic.
 
 Revision:
-Turn the first section into an action queue: critical alerts, delayed tickets, technicians offline, pending approvals.
+Turn the first section into an action queue: critical alerts, delayed tickets, agents offline, pending approvals.
 
 What can hurt usability?
 Too much animation or hiding filters on mobile.

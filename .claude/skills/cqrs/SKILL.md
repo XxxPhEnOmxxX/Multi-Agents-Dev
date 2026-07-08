@@ -41,10 +41,10 @@ Separate state-changing operations from read-only operations so each side can be
 
 ## Examples
 
-- `CloseWorkOrderCommand` changes state.
-- `ListTechnicianWorkOrdersQuery` reads state.
-- `GetWorkOrderDetailsQuery` reads state.
-- `SyncOfflineFieldVisitCommand` changes state and must be idempotent.
+- `PlaceOrderCommand` changes state.
+- `ListCustomerOrdersQuery` reads state.
+- `GetOrderDetailsQuery` reads state.
+- `SyncOfflineDraftCommand` changes state and must be idempotent.
 
 ## Expected Output
 

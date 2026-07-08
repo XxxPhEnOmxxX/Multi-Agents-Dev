@@ -12,7 +12,7 @@ Do not spawn every agent by default. Use the smallest useful team.
 | UI, UX, responsive frontend, visual polish | frontend-specialist | qa-engineer, security-engineer when data/auth involved |
 | API, services, business rules, persistence | backend-specialist | security-engineer, qa-engineer, software-architect when structural |
 | Auth, permissions, secrets, sensitive data | security-engineer | backend-specialist, qa-engineer |
-| Docker, n8n, proxy, deploy, infra | devops-engineer | security-engineer, qa-engineer |
+| Infrastructure, containers, proxy, deploy, automation platforms | devops-engineer | security-engineer, qa-engineer |
 | Tests, GitHub Actions, release readiness | qa-engineer | backend/frontend/devops/security depending on failure |
 
 ## Risk-based escalation
@@ -25,7 +25,7 @@ Database migration -> backend-specialist + qa-engineer; architect if structural
 Production deploy -> devops-engineer + qa-engineer; security if public/sensitive
 Public API/webhook -> backend-specialist + security-engineer + qa-engineer
 Frontend with customer data -> frontend-specialist + security-engineer + qa-engineer
-n8n credentials/workflows -> devops-engineer + security-engineer
+Automation platform credentials/workflows -> devops-engineer + security-engineer
 Major refactor -> software-architect + qa-engineer
 ```
 
@@ -44,7 +44,7 @@ Use `software-architect` to plan when:
 Use `devops-engineer` to plan when:
 
 ```txt
-- Docker, n8n, proxy, TLS, production, volumes, backups, or deploy are involved;
+- infrastructure, containers, proxy, TLS, production, volumes, backups, or deploy are involved;
 - operational safety matters;
 - rollback is needed.
 ```

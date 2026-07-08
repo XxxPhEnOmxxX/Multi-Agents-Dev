@@ -12,7 +12,7 @@ Build security into the design instead of treating it as a final review step.
 ## Checklist
 
 - Authentication is explicit and tested.
-- Authorization happens before returning customer, work-order, network, or technician data.
+- Authorization happens before returning customer data or other business-sensitive records.
 - Secrets are loaded from secure configuration and never committed.
 - Logs do not expose tokens, passwords, customer private data, or raw external responses.
 - External input is validated before reaching use cases.
@@ -24,7 +24,7 @@ Build security into the design instead of treating it as a final review step.
 
 ## Integration Security
 
-- Store ERP credentials outside code.
+- Store third-party integration credentials outside code.
 - Mask credentials in errors and logs.
 - Do not pass raw vendor payloads to clients unless explicitly sanitized.
 - Treat webhooks and bot inputs as untrusted.

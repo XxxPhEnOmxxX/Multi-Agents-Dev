@@ -1,6 +1,6 @@
 # Operational UI Reference
 
-Use this reference when the frontend task involves dashboards, admin panels, CRMs, NOCs, telecom tools, internal systems, monitoring pages, forms, tables, or workflows used during real operation.
+Use this reference when the frontend task involves operational dashboards, admin panels, CRMs, internal systems, monitoring pages, forms, tables, or workflows used during real operation.
 
 ## Priority order
 

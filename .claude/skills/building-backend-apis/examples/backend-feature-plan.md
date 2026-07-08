@@ -5,51 +5,51 @@ Use this as a shape for backend planning. Do not copy blindly.
 ## User request
 
 ```txt
-Add an endpoint to create service orders for customers and assign them to technicians.
+Add an endpoint to create bookings for customers and assign them to staff members.
 ```
 
 ## Backend plan
 
 ```txt
 Backend scope:
-Create service order API and assignment logic.
+Create booking API and assignment logic.
 
 Behavior to implement/fix:
-Admin can create a service order for an existing customer and optionally assign it to a technician.
+Admin can create a booking for an existing customer and optionally assign it to a staff member.
 
 Affected routes/services/data:
-- POST /api/service-orders
-- ServiceOrderService
+- POST /api/bookings
+- BookingService
 - CustomerRepository
-- TechnicianRepository
-- ServiceOrderRepository
+- StaffMemberRepository
+- BookingRepository
 
 Business rules:
 - customer must exist;
-- technician must exist if provided;
-- normal users cannot create service orders;
-- initial status is pending or assigned depending on technician;
-- service order creation should be audited.
+- staff member must exist if provided;
+- normal users cannot create bookings;
+- initial status is pending or assigned depending on staff member;
+- booking creation should be audited.
 
 Validation rules:
 - customerId required;
-- technicianId optional but must be valid if present;
+- staffMemberId optional but must be valid if present;
 - description required with max length;
 - priority must be one of allowed values;
 - scheduledDate must be a valid date if present.
 
 Auth/permission impact:
-Admin or dispatcher role required. Technician cannot create service order for another technician.
+Admin or coordinator role required. A staff member cannot create a booking for another staff member.
 
 Database impact:
-May need service_orders table and index on customerId, technicianId, status, scheduledDate.
+May need bookings table and index on customerId, staffMemberId, status, scheduledDate.
 
 Risk level:
 Medium, because it creates operational records and role-based behavior.
 
 Planned checks:
 - unit tests for service rules;
-- integration test for POST /api/service-orders;
+- integration test for POST /api/bookings;
 - negative test for non-admin;
 - migration validation;
 - lint/build/test.
@@ -68,17 +68,17 @@ Data integrity impact:
 Creation should use transaction if audit log is written in the same flow.
 
 Auth/authorization impact:
-Admin check exists, but dispatcher role is missing.
+Admin check exists, but coordinator role is missing.
 
 Error handling:
-Customer not found should return 404. Invalid technicianId should return 400 or 404 consistently with project convention.
+Customer not found should return 404. Invalid staffMemberId should return 400 or 404 consistently with project convention.
 
 Tests/validation:
 Add negative authorization test and invalid customer test.
 
 Risks:
-Without transaction, service order may be created without audit record if audit write fails.
+Without transaction, booking may be created without audit record if audit write fails.
 
 Recommended changes:
-Add transaction, dispatcher permission, and integration tests.
+Add transaction, coordinator permission, and integration tests.
 ```

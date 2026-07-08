@@ -47,7 +47,7 @@ Execution order:
 
 ## Sensitive access needs
 
-Does this task require access to secrets, production, customer data, private keys, n8n credentials, or destructive operations?
+Does this task require access to secrets, production, customer data, private keys, automation platform credentials, or destructive operations?
 
 - [ ] No sensitive access needed
 - [ ] Sensitive access may be needed and requires explicit approval

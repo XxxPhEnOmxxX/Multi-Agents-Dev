@@ -20,12 +20,12 @@ External system -> Adapter -> Port -> Application -> Domain
 ## Port Types
 
 - Inbound port: operation the application exposes, such as a use case or command handler.
-- Outbound port: capability the application needs, such as repository, ERP gateway, storage, notification, queue, or OLT access.
+- Outbound port: capability the application needs, such as repository, payment gateway, storage, notification, queue, or external system access.
 
 ## Adapter Types
 
-- Inbound adapter: HTTP controller, CLI command, worker, webhook, Telegram bot, mobile BFF endpoint.
-- Outbound adapter: ERP client, database repository, S3 storage, OLT command adapter, notification provider.
+- Inbound adapter: HTTP controller, CLI command, worker, webhook, chat bot, mobile BFF endpoint.
+- Outbound adapter: payment gateway client, database repository, object storage, external API adapter, notification provider.
 
 ## Workflow
 
@@ -41,7 +41,7 @@ External system -> Adapter -> Port -> Application -> Domain
 - The port name should describe the business capability, not the vendor.
 - The adapter name may describe the vendor.
 - Adapters translate; they do not own business rules.
-- Use cases must not know HTTP paths, auth headers, or ERP-specific fields.
+- Use cases must not know HTTP paths, auth headers, or vendor-specific fields.
 
 ## Expected Output
 

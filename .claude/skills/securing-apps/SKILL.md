@@ -1,6 +1,6 @@
 ---
 name: securing-apps
-description: Reviews application security and runs safe, authorized security checks for web apps, APIs, authentication, authorization, configuration, dependencies, Docker, secrets, headers, CORS, logging, and deployment risk. Use when analyzing security posture, preparing a security review, testing a system you are authorized to assess, or validating fixes before release.
+description: Reviews application security and runs safe, authorized security checks for web apps, APIs, authentication, authorization, configuration, dependencies, containers, secrets, headers, CORS, logging, and deployment risk. Use when analyzing security posture, preparing a security review, testing a system you are authorized to assess, or validating fixes before release.
 ---
 
 # Securing Apps
@@ -63,7 +63,7 @@ Identify:
 - third-party integrations;
 - exposed ports and services;
 - secrets and environment handling;
-- Docker, reverse proxy, TLS, and deployment configuration.
+- containers, reverse proxy, TLS, and deployment configuration.
 ```
 
 ### 2. Classify risk areas
@@ -99,7 +99,7 @@ Dependencies:
 - vulnerable packages, outdated runtimes, risky transitive dependencies.
 
 Infrastructure:
-- Docker privileges, exposed ports, volumes, network boundaries, root containers.
+- container privileges, exposed ports, volumes, network boundaries, root containers.
 
 Logging and audit:
 - security events, sensitive log leakage, traceability, admin actions.
@@ -129,7 +129,7 @@ Examples of safe validation types:
 - auth/session behavior check with test accounts;
 - authorization check using owned test records;
 - input validation check using harmless malformed data;
-- Docker Compose configuration inspection;
+- container/deployment configuration inspection;
 - secret scanning of repository history and current files.
 ```
 
@@ -203,8 +203,9 @@ npm run build
 pip-audit
 safety check
 pytest
-docker compose config
 ```
+
+Add platform-specific validation commands (for example, container config checks) only when the project uses that platform. See `references/safe-test-commands.md`.
 
 For HTTP checks, prefer low-impact requests and document exactly what was checked.
 
