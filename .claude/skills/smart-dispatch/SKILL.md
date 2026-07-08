@@ -53,7 +53,7 @@ Use for:
 - integrations;
 - refactoring with moderate reasoning;
 - bug fixes with clear cause;
-- test implementation that needs project understanding.
+- test implementation that needs project understanding (backend-specialist or frontend-specialist).
 ```
 
 Typical agents:
@@ -61,7 +61,7 @@ Typical agents:
 ```txt
 backend-specialist
 frontend-specialist
-qa-engineer
+qa-engineer for test strategy, acceptance criteria, CI diagnosis, and evidence validation (not test implementation)
 ```
 
 ### Fast mechanical model
@@ -82,7 +82,7 @@ Use for:
 Typical agents:
 
 ```txt
-qa-engineer for simple test scaffolding
+backend-specialist or frontend-specialist for simple test scaffolding, with qa-engineer defining criteria and validating evidence
 frontend-specialist for simple UI polish/copy
 backend-specialist for simple DTO/schema boilerplate
 ```
@@ -129,7 +129,7 @@ Use only when:
 
 ```txt
 Model class: fast mechanical
-Agents: qa-engineer or relevant single specialist
+Agents: relevant single executor specialist
 Issue: yes
 PR: yes if repo changes
 Review: lightweight
@@ -151,7 +151,7 @@ Agents: software-architect first
 Then delegate implementation agents after issue plan is accepted.
 ```
 
-### Docker/n8n production change
+### Production infrastructure change
 
 ```txt
 Model class: complex reasoning for planning, standard for config edit
@@ -167,7 +167,7 @@ Permission gate: required before production/secrets/destructive action
 3. standard implementation -> frontend-specialist implements UI
 4. standard/fast -> qa-engineer validates tests and CI
 5. security-engineer reviews if auth/data/public API involved
-6. devops-engineer reviews if Docker/deploy changes exist
+6. devops-engineer reviews if infrastructure/deploy changes exist
 ```
 
 ## Cost control checklist
