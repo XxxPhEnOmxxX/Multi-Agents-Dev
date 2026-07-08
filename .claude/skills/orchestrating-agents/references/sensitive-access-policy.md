@@ -17,7 +17,7 @@ Treat these as sensitive:
 - OAuth client secrets;
 - cloud provider credentials;
 - GitHub secrets;
-- n8n credentials and encryption key;
+- automation/integration platform credentials and encryption keys;
 - database dumps;
 - production databases;
 - production logs that may include private data;
@@ -74,7 +74,7 @@ Ask for approval before:
 - changing database schema;
 - reading production secrets;
 - running migrations;
-- changing n8n encryption key or credentials;
+- changing automation platform encryption keys or credentials;
 - deleting containers, volumes, networks, backups, or database data;
 - running destructive cleanup commands.
 ```

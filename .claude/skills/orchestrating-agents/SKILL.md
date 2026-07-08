@@ -80,7 +80,7 @@ Expected PR outcome:
 
 Use `software-architect` for planning when architecture, modules, service boundaries, data ownership, or major trade-offs are involved.
 
-Use `devops-engineer` for planning when Docker, n8n, production, deploy, proxy, DNS, TLS, volumes, backups, or infrastructure are involved.
+Use `devops-engineer` for planning when infrastructure, production, deploy, proxy, DNS, TLS, volumes, backups, or platform operations are involved.
 
 Use `security-engineer` before implementation when the task touches auth, permissions, secrets, sensitive data, public APIs, webhooks, CORS, headers, deploy, or production access.
 
@@ -102,7 +102,7 @@ Sensitive resources include:
 - production logs that may contain secrets;
 - SSH keys;
 - certificate private keys;
-- n8n credentials/encryption key;
+- automation/integration platform credentials and encryption keys;
 - cloud provider credentials;
 - deploy secrets;
 - GitHub secrets;
@@ -143,7 +143,7 @@ qa-engineer:
 Acceptance criteria, tests, GitHub Actions, CI diagnosis, release/merge evidence.
 
 devops-engineer:
-Docker, n8n, infrastructure, proxy, deploy, volumes, logs, backups, production operations.
+Infrastructure, containers, automation platforms, proxy, deploy, volumes, logs, backups, production operations.
 ```
 
 Do not involve every agent by default. Use the smallest useful team.
@@ -181,7 +181,7 @@ Document:
 - commands needed to run/test/deploy;
 - API contract changes;
 - database/migration notes;
-- operational runbooks for infra/n8n;
+- operational runbooks for infrastructure and automation platforms;
 - non-obvious business rules.
 ```
 

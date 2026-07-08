@@ -5,14 +5,14 @@ Use this example as a shape for planning multi-agent work.
 ## User request
 
 ```txt
-Add a customer dashboard with backend API, frontend screen, tests, and deploy through Docker.
+Add a customer dashboard with backend API, frontend screen, tests, and deploy configuration.
 ```
 
 ## Orchestrator intake
 
 ```txt
 Request summary:
-Add a customer dashboard spanning backend, frontend, tests, and Docker deployment.
+Add a customer dashboard spanning backend, frontend, tests, and deployment.
 
 Target repository/project:
 Current working repository.
@@ -34,7 +34,7 @@ Required agents:
 - backend-specialist for API/data;
 - frontend-specialist for dashboard UI;
 - qa-engineer for tests and GitHub Actions;
-- devops-engineer if Docker changes are required;
+- devops-engineer if deploy config changes are required;
 - security-engineer if customer data/auth is involved.
 
 Issue strategy:
@@ -57,7 +57,7 @@ Scope:
 - Backend endpoint for dashboard data.
 - Frontend dashboard page.
 - Validation/tests.
-- Docker/deploy review if needed.
+- Infrastructure/deploy review if needed.
 
 Out of scope:
 - Production deploy without explicit approval.
@@ -77,7 +77,7 @@ Agent plan:
 3. frontend-specialist implements UI.
 4. security-engineer reviews auth/data exposure.
 5. qa-engineer validates tests/CI.
-6. devops-engineer reviews Docker only if deploy config changes.
+6. devops-engineer reviews infrastructure only if deploy config changes.
 
 Sensitive access needs:
 None initially.

@@ -64,7 +64,7 @@ Residual risk: Check other ID-based routes for the same pattern.
 - CORS preflight check
 - Security header review
 - Dependency audit
-- Docker Compose config review
+- Deployment config review
 ```
 
 ## Commands/evidence
@@ -73,7 +73,7 @@ Residual risk: Check other ID-based routes for the same pattern.
 Command: npm audit --audit-level=moderate
 Result: completed, 0 high/critical findings
 
-Command: docker compose config
+Command: deployment config validation (platform equivalent of a config lint/dry-run)
 Result: completed, config parsed successfully
 
 Command: curl -I https://example.com/

@@ -76,7 +76,6 @@ pnpm build
 pytest
 ruff check .
 mypy .
-docker compose config
 ```
 
 Do not invent successful command results. If a command does not exist, report it.

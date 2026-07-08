@@ -48,7 +48,7 @@ Architecture review:
 Evaluating the current design and identifying risks, simplifications, and improvement paths.
 
 Decision support:
-Comparing options such as monolith vs microservices, REST vs GraphQL, SQL vs NoSQL, queue vs direct call, Docker Compose vs Kubernetes.
+Comparing options such as monolith vs microservices, REST vs GraphQL, SQL vs NoSQL, queue vs direct call, single-node containers vs orchestrated clusters.
 ```
 
 ## Question-first workflow

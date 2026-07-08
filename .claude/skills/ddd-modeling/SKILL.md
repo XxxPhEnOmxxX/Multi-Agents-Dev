@@ -50,7 +50,7 @@ Use this skill when the task touches:
 | Aggregate | `Order` owning `OrderItem` and payment eligibility rules | Protects consistency for related changes. |
 | Domain service | `PricingPolicy`, `EligibilityChecker` | Represents domain behavior that does not belong naturally to one entity. |
 | Domain event | `OrderPlaced`, `PaymentReceived`, `SubscriptionCancelled` | Describes a business fact that already happened. |
-| External concept | `StripeWebhookPayload`, `ErpTicketPayload`, `DatabaseOrderRow` | Belongs to integration or persistence, not core domain language. |
+| External concept | `StripeWebhookPayload`, `ExternalTicketPayload`, `DatabaseOrderRow` | Belongs to integration or persistence, not core domain language. |
 
 ## Expected Output
 

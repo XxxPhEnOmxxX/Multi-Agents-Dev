@@ -75,10 +75,10 @@ Tests for previously broken behavior.
 - No sensitive data in logs or frontend.
 ```
 
-### Docker/deploy change
+### Infrastructure/deploy change
 
 ```txt
-- docker compose config or equivalent validation.
+- deployment configuration validation (config lint, dry-run, or equivalent).
 - Healthcheck behavior.
 - Exposed ports reviewed.
 - Environment/secrets handling reviewed.

@@ -51,7 +51,9 @@ pip-audit
 
 Only use commands that are installed or documented in the project.
 
-## Docker and Compose
+## Container platforms
+
+Use only if the project runs on a container platform. Docker Compose example:
 
 ```bash
 docker compose config

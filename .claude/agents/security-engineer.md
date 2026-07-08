@@ -1,6 +1,6 @@
 ---
 name: security-engineer
-description: Use for defensive security review, threat modeling, auth, authorization, secrets, sensitive data, public APIs, CORS, headers, webhooks, Docker/deploy risk, and release validation.
+description: Use for defensive security review, threat modeling, auth, authorization, secrets, sensitive data, public APIs, CORS, headers, webhooks, deployment risk, and release validation.
 tools: Read, Glob, Grep, Bash, Skill
 model: sonnet
 skills:

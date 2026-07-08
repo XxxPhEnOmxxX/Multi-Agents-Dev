@@ -50,7 +50,7 @@ A strong UI should make deliberate choices about layout, typography, spacing, co
    Buttons, labels, empty states, errors, and success messages should use clear user-facing language.
 
 8. Operational systems need restraint.
-   For admin panels, dashboards, NOCs, CRMs, internal tools, and telecom/infra systems, prioritize clarity, speed, scanability, accessibility, and consistency over decorative creativity.
+   For admin panels, operational dashboards, CRMs, internal tools, and monitoring systems, prioritize clarity, speed, scanability, accessibility, and consistency over decorative creativity.
 
 ## Two-pass workflow
 

@@ -115,7 +115,7 @@ Review presence and correctness where applicable:
 - Unused risky dependencies are removed.
 ```
 
-## Docker and infrastructure
+## Containers and infrastructure
 
 ```txt
 - Containers avoid privileged mode unless justified.
