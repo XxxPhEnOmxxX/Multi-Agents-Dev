@@ -1,6 +1,7 @@
 # Agent and Skill Governance
 
 Issue: #5
+Related delivery workflow: #12
 
 ## Purpose
 
@@ -26,7 +27,8 @@ The base template may include:
 - generic infrastructure and operational safety practices;
 - generic orchestration and safety rules;
 - token/context economy guidance;
-- documentation for maintaining the agent topology.
+- documentation for maintaining the agent topology;
+- generic feature-delivery workflows that remain stack-neutral and on demand.
 
 The base template should not include:
 
@@ -74,6 +76,23 @@ Guidelines:
 - Move long examples, templates, and references into supporting files when needed.
 - Prefer one clear responsibility per skill.
 - Do not preload a skill in an agent unless the agent needs it on most runs.
+
+## Spec-Driven Delivery Skill Rule
+
+`tlc-spec-driven` is a reusable delivery workflow, not a new agent and not a replacement for `orchestrating-agents`.
+
+Use it on demand when a feature needs:
+
+```txt
+specification -> design -> tasks -> execute -> independent validation
+```
+
+Keep these constraints:
+
+- Do not preload it in every agent.
+- Do not duplicate its detailed workflow in `.claude/CLAUDE.md`.
+- Keep `.specs/` artifacts project-local to the target project using the template.
+- Let `orchestrating-agents` continue to own issue, branch, PR, permission gates, and completion reporting.
 
 ## Infrastructure Extension Rule
 
