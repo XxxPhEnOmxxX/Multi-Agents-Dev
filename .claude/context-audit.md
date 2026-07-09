@@ -1,40 +1,43 @@
 # Claude Code Context Audit
 
-Issue: #1
-Related updates: #3, #5, #12
+Issue: #1  
+Related updates: #3, #5, #12, #14, #16
 
 ## Goal
 
-Reduce always-loaded context while preserving detailed behavior through skills and agents.
+Reduce always-loaded context while preserving detailed behavior through agents, skills, prompts, guides, templates, and reference documents.
 
-## Methodology applied
+The repository must support Claude Code, Codex-compatible workflows, and other coding-agent sessions without forcing every model to load every instruction.
 
-Based on the token-saving approach:
+---
+
+## Methodology Applied
 
 ```txt
-1. Audit always-loaded context.
-2. Keep CLAUDE.md as a compact kernel.
-3. Move detailed procedures to skills.
-4. Avoid duplicated instructions.
+1. Keep CLAUDE.md as a compact Claude Code kernel.
+2. Keep AGENTS.md as a thin Codex adapter, not a full duplicate.
+3. Move detailed procedures to skills, prompts, guides, templates, or reference docs.
+4. Avoid duplicated instructions across always-loaded files.
 5. Use smart dispatch for model/agent routing.
 6. Keep issue/PR workflow for continuity.
 7. Preload only the primary skill per subagent.
 8. Invoke architecture/practice/delivery skills only on demand.
 9. Keep project-specific domains out of the base template.
 10. Keep review/planning agents read-oriented by default.
-11. Keep full template documentation in reference files, not CLAUDE.md.
-12. Keep DevOps/infrastructure guidance platform-neutral in the base template.
-13. Keep spec-driven feature delivery as an on-demand workflow, not an always-loaded rule set.
+11. Keep project/feature planning guides on demand.
+12. Keep fill-in documents as templates so models load only what they need.
+13. Keep full template documentation in reference files, not CLAUDE.md.
 ```
 
-## Current repository state
+---
+
+## Current Repository State
 
 ```txt
-Always-loaded project orchestrator:
-- .claude/CLAUDE.md
-
-Human entrypoint:
-- README.md
+Always-loaded or likely entrypoint files:
+- .claude/CLAUDE.md         -> Claude Code orchestration kernel
+- AGENTS.md                 -> thin Codex-compatible adapter
+- README.md                 -> human entrypoint
 
 Detailed behavior loaded on demand:
 - .claude/skills/orchestrating-agents/
@@ -62,6 +65,18 @@ Specialists:
 - .claude/agents/qa-engineer.md
 - .claude/agents/devops-engineer.md
 
+Session prompts loaded on demand:
+- .claude/prompts/bootstrap.md
+
+Project and feature planning guides loaded on demand:
+- .claude/guides/README.md
+- .claude/guides/project-from-zero.md
+- .claude/guides/feature-planning.md
+
+Fill-in templates loaded only when needed:
+- .claude/templates/project/
+- .claude/templates/feature/
+
 Reference documents not auto-loaded unless read:
 - .claude/template-usage.md
 - .claude/agent-skill-governance.md
@@ -69,11 +84,13 @@ Reference documents not auto-loaded unless read:
 - .claude/context-audit.md
 ```
 
-## Important decision
+---
 
-Do not duplicate detailed agent or skill behavior in `.claude/CLAUDE.md`.
+## Important Decision
 
-The orchestrator kernel should only contain:
+Do not duplicate detailed agent, skill, guide, or template behavior in `.claude/CLAUDE.md` or `AGENTS.md`.
+
+`CLAUDE.md` should only contain:
 
 ```txt
 - core flow;
@@ -85,7 +102,18 @@ The orchestrator kernel should only contain:
 - pointers to skills and governance references.
 ```
 
-## Skill preload policy
+`AGENTS.md` should only contain:
+
+```txt
+- compact Codex-compatible workflow;
+- minimal read order;
+- security and context-economy rules;
+- pointer to .claude/ files when needed.
+```
+
+---
+
+## Skill Preload Policy
 
 Each subagent should preload only its primary operational skill through frontmatter `skills:`.
 
@@ -111,13 +139,32 @@ testing-strategy
 tlc-spec-driven
 ```
 
-This avoids loading multiple long practice guides into every subagent context while preserving specialist access when the task requires it.
-
-`tlc-spec-driven` is intentionally on demand because it contains a full feature-delivery method with `.specs/`, references, validation, and lessons. Loading it globally would violate the context economy design.
+`tlc-spec-driven` is intentionally on demand because it contains a full feature-delivery method with `.specs/`, references, validation, and lessons. Loading it globally would violate context economy.
 
 Project-specific skills should be added only when the repository has a concrete domain, vendor, platform, integration style, or team convention that needs repeatable guidance.
 
-## Tool permission policy
+---
+
+## Guide and Template Policy
+
+Guides should be short workflow spines.
+
+Templates should contain fill-in Markdown structures.
+
+Use this split:
+
+```txt
+.claude/guides/project-from-zero.md   -> what to do and in what order
+.claude/templates/project/            -> detailed project files to create
+.claude/guides/feature-planning.md    -> what to do and in what order
+.claude/templates/feature/            -> detailed feature files to create
+```
+
+This prevents a model from loading a large guide when it only needs one template.
+
+---
+
+## Tool Permission Policy
 
 Review/planning agents are read-oriented by default:
 
@@ -135,12 +182,19 @@ frontend-specialist
 devops-engineer
 ```
 
-## Documentation policy
+---
+
+## Documentation Policy
 
 Full documentation belongs in reference files, not in `.claude/CLAUDE.md`.
 
 ```txt
 README.md -> human entrypoint and quick-start guide
+AGENTS.md -> thin Codex adapter
+.claude/CLAUDE.md -> Claude Code orchestration kernel
+.claude/prompts/bootstrap.md -> session bootstrap policy
+.claude/guides/ -> project/feature planning spines
+.claude/templates/ -> fill-in documents for project and feature specs
 .claude/template-usage.md -> complete usage and adaptation guide
 .claude/agent-skill-governance.md -> maintenance and extension rules
 .claude/architecture-skill-matrix.md -> agent, skill, and permission matrix
@@ -148,58 +202,17 @@ README.md -> human entrypoint and quick-start guide
 .claude/skills/tlc-spec-driven/references/ -> spec-driven delivery details
 ```
 
-## Reduction applied
+---
 
-`.claude/CLAUDE.md` remains a compact kernel.
-
-Detailed rules remain in project skills and supporting reference files, including:
+## Ongoing Rules
 
 ```txt
-.claude/skills/orchestrating-agents/SKILL.md
-.claude/skills/orchestrating-agents/references/
-.claude/skills/smart-dispatch/SKILL.md
-.claude/skills/tlc-spec-driven/SKILL.md
-.claude/skills/tlc-spec-driven/references/
-.claude/skills/tlc-spec-driven/scripts/lessons.py
-.claude/skills/*/SKILL.md
-.claude/template-usage.md
-.claude/agent-skill-governance.md
-```
-
-## Architecture skill update
-
-Issue #3 adds practice-based architecture skills without increasing the number of agents.
-
-Issue #5 optimizes those skills so they are available on demand instead of being preloaded into every subagent context, and keeps the base template free of domain-specific skills.
-
-Issue #12 adds `tlc-spec-driven` as a generic, stack-neutral delivery workflow skill. It does not change agent count, tool permissions, or the one-primary-skill preload policy.
-
-The distribution is documented in:
-
-```txt
-.claude/architecture-skill-matrix.md
-```
-
-Agent and skill change criteria are documented in:
-
-```txt
-.claude/agent-skill-governance.md
-```
-
-Template usage and project adaptation are documented in:
-
-```txt
-README.md
-.claude/template-usage.md
-```
-
-## Ongoing rules
-
-```txt
-- Do not create AGENTS.md as an always-loaded duplicate.
+- Do not create AGENTS.md as a full duplicate of CLAUDE.md.
+- Keep AGENTS.md thin for Codex compatibility.
 - Do not add @ references from root CLAUDE.md unless absolutely necessary.
 - Do not put long checklists in CLAUDE.md.
-- Prefer skills/references/examples for detailed behavior.
+- Prefer skills/references/prompts/guides/templates for detailed behavior.
+- Keep project and feature guides short; move fill-in structures to templates.
 - Avoid prompt hooks unless the benefit clearly beats the extra API call cost.
 - Keep context audit updated when adding always-loaded files or changing the skill/agent topology.
 - Keep subagent preloaded skills minimal; use on-demand skills for specialized practice guidance.
@@ -207,5 +220,4 @@ README.md
 - Keep the base template generic; add domain-specific skills only inside project adaptations.
 - Keep review/planning agents read-oriented unless a project adaptation explicitly changes their role.
 - Keep DevOps/infrastructure guidance generic; add Docker, Kubernetes, n8n, cloud, or vendor-specific detail only in project clones.
-- Keep full template documentation in README.md and reference docs instead of CLAUDE.md.
 ```
