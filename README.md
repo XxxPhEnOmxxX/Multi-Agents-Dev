@@ -61,7 +61,7 @@ The template keeps the number of agents stable. Add a new agent only when a proj
 
 ## Included Skills
 
-Each agent preloads only one primary operational skill. Architecture and practice skills stay available on demand through the `Skill` tool.
+Each agent preloads only one primary operational skill. Architecture, practice, and delivery workflow skills stay available on demand through the `Skill` tool.
 
 | Skill | Purpose |
 | --- | --- |
@@ -80,6 +80,7 @@ Each agent preloads only one primary operational skill. Architecture and practic
 | `code-quality` | Maintainability, naming, cohesion, error handling, type safety. |
 | `security-by-design` | Auth, permissions, secrets, validation, logging, sensitive data boundaries. |
 | `testing-strategy` | Tests for domain rules, use cases, handlers, adapters, security, regressions. |
+| `tlc-spec-driven` | Spec-driven feature delivery with requirements, design, task breakdown, gates, `.specs/` continuity, independent validation, and lessons. |
 
 ## Tool Permission Model
 
@@ -105,10 +106,11 @@ Recommended behavior:
 1. Start with the main orchestrator.
 2. Use `smart-dispatch` to choose the smallest useful agent team.
 3. Use `software-architect` first for high-impact architecture decisions.
-4. Delegate implementation to backend, frontend, or DevOps agents.
-5. Use QA and security agents as reviewers when risk justifies it.
-6. Keep evidence in the issue or PR.
-7. Do not merge without validation.
+4. Use `tlc-spec-driven` when a feature needs traceable specification, task breakdown, atomic implementation, validation, UAT, or resume/pause continuity.
+5. Delegate implementation to backend, frontend, or DevOps agents.
+6. Use QA and security agents as reviewers when risk justifies it.
+7. Keep evidence in the issue or PR.
+8. Do not merge without validation.
 
 ## How to Use This Template
 
@@ -131,7 +133,8 @@ Good candidates for the base template:
 - security, testing, infrastructure, and quality practices;
 - generic GitHub issue and PR workflow;
 - generic context economy rules;
-- generic agent and skill governance.
+- generic agent and skill governance;
+- stack-neutral feature delivery workflows that remain on demand.
 
 Poor candidates for the base template:
 
