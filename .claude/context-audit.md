@@ -1,7 +1,7 @@
 # Claude Code Context Audit
 
 Issue: #1
-Related updates: #3, #5
+Related updates: #3, #5, #12
 
 ## Goal
 
@@ -19,11 +19,12 @@ Based on the token-saving approach:
 5. Use smart dispatch for model/agent routing.
 6. Keep issue/PR workflow for continuity.
 7. Preload only the primary skill per subagent.
-8. Invoke architecture/practice skills only on demand.
+8. Invoke architecture/practice/delivery skills only on demand.
 9. Keep project-specific domains out of the base template.
 10. Keep review/planning agents read-oriented by default.
 11. Keep full template documentation in reference files, not CLAUDE.md.
 12. Keep DevOps/infrastructure guidance platform-neutral in the base template.
+13. Keep spec-driven feature delivery as an on-demand workflow, not an always-loaded rule set.
 ```
 
 ## Current repository state
@@ -51,6 +52,7 @@ Detailed behavior loaded on demand:
 - .claude/skills/code-quality/
 - .claude/skills/security-by-design/
 - .claude/skills/testing-strategy/
+- .claude/skills/tlc-spec-driven/
 
 Specialists:
 - .claude/agents/software-architect.md
@@ -69,7 +71,7 @@ Reference documents not auto-loaded unless read:
 
 ## Important decision
 
-Do not duplicate detailed agent behavior in `.claude/CLAUDE.md`.
+Do not duplicate detailed agent or skill behavior in `.claude/CLAUDE.md`.
 
 The orchestrator kernel should only contain:
 
@@ -77,6 +79,7 @@ The orchestrator kernel should only contain:
 - core flow;
 - non-negotiable safety/workflow rules;
 - short agent routing map;
+- short on-demand skill routing hints;
 - sensitive access gate;
 - completion report format;
 - pointers to skills and governance references.
@@ -95,7 +98,7 @@ qa-engineer -> qa-github-actions
 devops-engineer -> managing-infrastructure
 ```
 
-Architecture/practice skills stay available on demand through the `Skill` tool:
+Architecture/practice/delivery skills stay available on demand through the `Skill` tool:
 
 ```txt
 ddd-modeling
@@ -105,9 +108,12 @@ cqrs
 code-quality
 security-by-design
 testing-strategy
+tlc-spec-driven
 ```
 
 This avoids loading multiple long practice guides into every subagent context while preserving specialist access when the task requires it.
+
+`tlc-spec-driven` is intentionally on demand because it contains a full feature-delivery method with `.specs/`, references, validation, and lessons. Loading it globally would violate the context economy design.
 
 Project-specific skills should be added only when the repository has a concrete domain, vendor, platform, integration style, or team convention that needs repeatable guidance.
 
@@ -139,6 +145,7 @@ README.md -> human entrypoint and quick-start guide
 .claude/agent-skill-governance.md -> maintenance and extension rules
 .claude/architecture-skill-matrix.md -> agent, skill, and permission matrix
 .claude/context-audit.md -> context economy record
+.claude/skills/tlc-spec-driven/references/ -> spec-driven delivery details
 ```
 
 ## Reduction applied
@@ -151,6 +158,9 @@ Detailed rules remain in project skills and supporting reference files, includin
 .claude/skills/orchestrating-agents/SKILL.md
 .claude/skills/orchestrating-agents/references/
 .claude/skills/smart-dispatch/SKILL.md
+.claude/skills/tlc-spec-driven/SKILL.md
+.claude/skills/tlc-spec-driven/references/
+.claude/skills/tlc-spec-driven/scripts/lessons.py
 .claude/skills/*/SKILL.md
 .claude/template-usage.md
 .claude/agent-skill-governance.md
@@ -161,6 +171,8 @@ Detailed rules remain in project skills and supporting reference files, includin
 Issue #3 adds practice-based architecture skills without increasing the number of agents.
 
 Issue #5 optimizes those skills so they are available on demand instead of being preloaded into every subagent context, and keeps the base template free of domain-specific skills.
+
+Issue #12 adds `tlc-spec-driven` as a generic, stack-neutral delivery workflow skill. It does not change agent count, tool permissions, or the one-primary-skill preload policy.
 
 The distribution is documented in:
 
@@ -191,6 +203,7 @@ README.md
 - Avoid prompt hooks unless the benefit clearly beats the extra API call cost.
 - Keep context audit updated when adding always-loaded files or changing the skill/agent topology.
 - Keep subagent preloaded skills minimal; use on-demand skills for specialized practice guidance.
+- Keep tlc-spec-driven on demand; do not preload it globally.
 - Keep the base template generic; add domain-specific skills only inside project adaptations.
 - Keep review/planning agents read-oriented unless a project adaptation explicitly changes their role.
 - Keep DevOps/infrastructure guidance generic; add Docker, Kubernetes, n8n, cloud, or vendor-specific detail only in project clones.
