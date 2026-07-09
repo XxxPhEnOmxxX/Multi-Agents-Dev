@@ -2,6 +2,7 @@
 
 Issue: #3
 Related optimization: #5
+Related delivery workflow: #12
 
 ## Purpose
 
@@ -15,9 +16,9 @@ Use `.claude/agent-skill-governance.md` before changing agent count, tool permis
 
 Each agent preloads only its primary operational skill through the `skills:` frontmatter.
 
-Architecture and practice skills stay available on demand through the `Skill` tool instead of being preloaded into every subagent context.
+Architecture, practice, and delivery workflow skills stay available on demand through the `Skill` tool instead of being preloaded into every subagent context.
 
-This keeps subagent context smaller while preserving access to DDD, Clean Architecture, Hexagonal Architecture, CQRS, security, testing, infrastructure, and code quality guidance when needed.
+This keeps subagent context smaller while preserving access to DDD, Clean Architecture, Hexagonal Architecture, CQRS, security, testing, infrastructure, code quality, and spec-driven delivery guidance when needed.
 
 Project-specific skills can be added later for a product domain, vendor, platform, integration pattern, or team convention.
 
@@ -32,6 +33,12 @@ Project-specific skills can be added later for a product domain, vendor, platfor
 | `code-quality` | Engineering quality | Improving maintainability, naming, cohesion, error handling, and type safety. |
 | `security-by-design` | Secure engineering | Reviewing auth, authorization, secrets, logs, validation, and sensitive data boundaries. |
 | `testing-strategy` | Testing practice | Designing tests for domain rules, use cases, handlers, adapters, and regressions. |
+
+## Delivery Workflow Skills
+
+| Skill | Workflow | Use When |
+| --- | --- | --- |
+| `tlc-spec-driven` | Spec-driven feature delivery | Planning, designing, tasking, implementing, validating, pausing, or resuming features with traceable requirements and verification evidence. |
 
 ## Preloaded Skill by Agent
 
@@ -59,15 +66,15 @@ Project-specific skills can be added later for a product domain, vendor, platfor
 
 | Agent | On-Demand Skills |
 | --- | --- |
-| `software-architect` | `ddd-modeling`, `clean-architecture`, `hexagonal-architecture`, `cqrs`, `security-by-design`, `testing-strategy` |
-| `backend-specialist` | `clean-architecture`, `hexagonal-architecture`, `cqrs`, `code-quality`, `testing-strategy`, `security-by-design` |
-| `frontend-specialist` | `code-quality`, `security-by-design`, `testing-strategy` |
-| `security-engineer` | `security-by-design`, `clean-architecture`, `hexagonal-architecture`, `code-quality`, `testing-strategy` |
-| `qa-engineer` | `testing-strategy`, `cqrs`, `ddd-modeling`, `security-by-design` |
-| `devops-engineer` | `security-by-design`, `code-quality`, `testing-strategy`, `hexagonal-architecture` |
+| `software-architect` | `ddd-modeling`, `clean-architecture`, `hexagonal-architecture`, `cqrs`, `security-by-design`, `testing-strategy`, `tlc-spec-driven` |
+| `backend-specialist` | `clean-architecture`, `hexagonal-architecture`, `cqrs`, `code-quality`, `testing-strategy`, `security-by-design`, `tlc-spec-driven` |
+| `frontend-specialist` | `code-quality`, `security-by-design`, `testing-strategy`, `tlc-spec-driven` |
+| `security-engineer` | `security-by-design`, `clean-architecture`, `hexagonal-architecture`, `code-quality`, `testing-strategy`, `tlc-spec-driven` |
+| `qa-engineer` | `testing-strategy`, `cqrs`, `ddd-modeling`, `security-by-design`, `tlc-spec-driven` |
+| `devops-engineer` | `security-by-design`, `code-quality`, `testing-strategy`, `hexagonal-architecture`, `tlc-spec-driven` |
 
 ## Operating Rule
 
-Use the smallest useful set of agents. Do not summon every agent or preload every practice skill just because a task mentions architecture.
+Use the smallest useful set of agents. Do not summon every agent or preload every practice/delivery skill just because a task mentions architecture or implementation.
 
-Architecture-heavy work usually starts with `software-architect`. Implementation usually moves to `backend-specialist`, `frontend-specialist`, or `devops-engineer`. Validation and risk review use `qa-engineer` and `security-engineer` when the risk justifies it.
+Architecture-heavy work usually starts with `software-architect`. Implementation usually moves to `backend-specialist`, `frontend-specialist`, or `devops-engineer`. Validation and risk review use `qa-engineer` and `security-engineer` when the risk justifies it. Feature delivery that needs specs, task traceability, gates, UAT, or `.specs/` continuity can invoke `tlc-spec-driven` on demand.
