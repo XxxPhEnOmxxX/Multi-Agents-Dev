@@ -14,6 +14,8 @@ Use `orchestrating-agents` for full intake, issue strategy, delegation, permissi
 
 Use `smart-dispatch` for model/task routing and choosing the smallest useful agent team.
 
+Use `tlc-spec-driven` when a feature needs spec-driven planning, requirement traceability, task breakdown, atomic implementation, UAT, independent verification, or `.specs/` continuity. It is an on-demand delivery workflow, not a replacement for `orchestrating-agents`.
+
 Use architecture practice skills only when the task touches that practice:
 
 ```txt
