@@ -4,11 +4,7 @@
 
 Use this guide when planning one feature before implementation.
 
-The goal is to turn a feature idea into clear, testable, reviewable work:
-
-```txt
-feature idea -> problem -> rules -> design -> tasks -> tests -> implementation PRs
-```
+The guide is intentionally short. Detailed fill-in files live in `.claude/templates/feature/` and should be opened only when needed.
 
 Do **not** implement functional code while using this guide.
 
@@ -20,13 +16,28 @@ This guide is on demand.
 
 Do not import it into `.claude/CLAUDE.md`.
 
-Read it only when planning a feature or reconciling a feature plan.
+Use only the target feature files and the templates required for the current planning phase.
+
+---
+
+## Flow
+
+```txt
+feature idea
+-> intake/context
+-> spec
+-> design
+-> tasks
+-> implementation issue
+-> implementation session prompt
+-> PR
+-> validation
+-> handoff
+```
 
 ---
 
 ## Relationship With Existing Workflow
-
-Use this guide with:
 
 | Area | Role |
 | --- | --- |
@@ -58,286 +69,23 @@ Do not involve every agent just because the feature is important.
 
 ---
 
-# Phase 1: Feature Intake
+## Feature Templates
 
-## Goal
+Use these templates only as needed:
 
-Understand the feature and its value before design.
-
-## Questions
-
-```txt
-What is the feature?
-Who needs it?
-What problem does it solve?
-What behavior is expected?
-What is out of scope?
-Which module owns it?
-Does it require UI, backend, database, integration, security, or infrastructure?
-```
-
-## Output
-
-A short intake summary inside the issue or feature `context.md`.
-
-```md
-# Feature Context
-
-## Summary
-
-## User / Actor
-
-## Problem
-
-## Expected Outcome
-
-## Module Ownership
-
-## Out of Scope
-
-## Assumptions
-
-## Open Questions
-```
+| Template | Output File | Use When |
+| --- | --- | --- |
+| `.claude/templates/feature/context.md` | `.specs/features/[feature]/context.md` | Capture ambiguity, legacy behavior, external context, or intake notes. |
+| `.claude/templates/feature/spec.md` | `.specs/features/[feature]/spec.md` | Define behavior, goals, business rules, acceptance criteria, and traceability. |
+| `.claude/templates/feature/design.md` | `.specs/features/[feature]/design.md` | Define architecture, layering, ports/adapters, data model, security, and risks. |
+| `.claude/templates/feature/tasks.md` | `.specs/features/[feature]/tasks.md` | Break implementation into small task/PR units. |
+| `.claude/templates/feature/validation.md` | `.specs/features/[feature]/validation.md` | Record test evidence, independent verification, UAT, and risks. |
 
 ---
 
-# Phase 2: Feature Specification
+## Implementation Issue Shape
 
-## Goal
-
-Define what the system must do.
-
-## Output
-
-`.specs/features/[feature]/spec.md`
-
-```md
-# [Feature Name] Specification
-
-## Problem Statement
-
-## Goals
-
-- [ ]
-
-## Out of Scope
-
-| Item | Reason |
-| --- | --- |
-
-## Users / Actors
-
-| Actor | Need |
-| --- | --- |
-
-## User Stories
-
-### P1: [Story Name]
-
-**User Story**: As a [role], I want [capability] so that [benefit].
-
-**Acceptance Criteria**:
-
-1. WHEN [event] THEN system SHALL [behavior].
-2. WHEN [edge case] THEN system SHALL [behavior].
-
-**Independent Test**:
-
-[How this can be validated.]
-
-## Business Rules
-
-| Rule ID | Rule | Applies To |
-| --- | --- | --- |
-
-## Edge Cases
-
-| Case | Expected Behavior |
-| --- | --- |
-
-## Requirement Traceability
-
-| Requirement ID | Source | Status |
-| --- | --- | --- |
-
-## Assumptions
-
-| Assumption | Reason | Needs Confirmation? |
-| --- | --- | --- |
-
-## Open Questions
-
-| Question | Blocks Implementation? | Default |
-| --- | --- | --- |
-```
-
----
-
-# Phase 3: Feature Design
-
-## Goal
-
-Define how the feature fits the architecture.
-
-## Output
-
-`.specs/features/[feature]/design.md`
-
-```md
-# [Feature Name] Design
-
-## Architecture Overview
-
-## Affected Modules
-
-| Module | Responsibility | Change |
-| --- | --- | --- |
-
-## Layering
-
-| Layer | Responsibility |
-| --- | --- |
-| Domain | |
-| Application | |
-| Interface | |
-| Infrastructure | |
-
-## Ports and Adapters
-
-| Port | Direction | Adapter | Purpose |
-| --- | --- | --- | --- |
-
-## Commands and Queries
-
-| Type | Name | Purpose |
-| --- | --- | --- |
-| Command | | |
-| Query | | |
-
-## Data Model
-
-| Entity / Table | Change | Reason |
-| --- | --- | --- |
-
-## API / UI Contract
-
-| Surface | Contract |
-| --- | --- |
-
-## Security and Permissions
-
-| Action | Required Permission |
-| --- | --- |
-
-## Validation Strategy
-
-| Behavior | Test Type |
-| --- | --- |
-
-## Risks
-
-| Risk | Mitigation |
-| --- | --- |
-```
-
----
-
-# Phase 4: Task Breakdown
-
-## Goal
-
-Break the feature into safe implementation units.
-
-Each task should be:
-
-```txt
-small
-scoped
-testable
-reviewable
-safe for one PR
-clear enough for another session/model
-```
-
-## Output
-
-`.specs/features/[feature]/tasks.md`
-
-```md
-# [Feature Name] Tasks
-
-## Execution Order
-
-```txt
-T1 -> T2 -> T3
-```
-
-## Test Coverage Matrix
-
-| Layer | Test Type | Required? | Command |
-| --- | --- | --- | --- |
-| Domain | Unit | Yes | |
-| Application | Unit/Integration | Yes | |
-| Interface | Integration/E2E | If applicable | |
-| Infrastructure | Integration | If applicable | |
-
-## Gates
-
-| Gate | Command | Required? |
-| --- | --- | --- |
-| Architecture | | Yes |
-| Unit Tests | | Yes |
-| Lint | | If available |
-| Typecheck | | If available |
-| Build | | Before merge |
-
-## Tasks
-
-### T1: [Task Name]
-
-**Goal**:
-
-**Scope**:
-
-**Files likely affected**:
-
-```txt
-[path]
-```
-
-**Depends on**:
-
-**Requirement IDs**:
-
-**Suggested agent**:
-
-**Done when**:
-
-- [ ]
-- [ ]
-- [ ] Gate passes
-
-**Tests**:
-
-**Out of scope**:
-
-**Suggested commit**:
-
-```txt
-feat(scope): description
-```
-```
-
----
-
-# Phase 5: Implementation Issue
-
-## Goal
-
-Create a GitHub issue that acts as the work contract.
-
-## Issue Template
+Create or update a GitHub issue before implementation.
 
 ```md
 # [Feature] [Task]
@@ -358,12 +106,7 @@ Create a GitHub issue that acts as the work contract.
 
 ## Acceptance Criteria
 
-- [ ]
-
 ## Agent Plan
-
-| Agent | Responsibility |
-| --- | --- |
 
 ## Validation Plan
 
@@ -374,9 +117,9 @@ Create a GitHub issue that acts as the work contract.
 
 ---
 
-# Phase 6: Implementation Session Prompt
+## Implementation Session Prompt Shape
 
-Use this prompt when moving from planning to code:
+Use this when moving from planning to code:
 
 ```md
 You are working inside the multi-agent project structure.
@@ -409,23 +152,11 @@ Rules:
 - Update `tasks.md`.
 - Update `STATE.md`.
 - Open a PR.
-
-Final response must include:
-
-## Issue
-## Branch
-## PR
-## Files Changed
-## What Changed
-## What Did Not Change
-## Gates Executed
-## Handoff
-## Next Recommended Task
 ```
 
 ---
 
-## Learning Notes Pattern
+## Learning Notes
 
 Feature planning should teach architecture when it matters.
 
@@ -435,8 +166,6 @@ Use this format:
 ## Learning Notes
 
 ### Concept Used
-
-[Example: use case, port, adapter, aggregate, command, query, repository, DTO.]
 
 ### Simple Explanation
 
@@ -451,9 +180,7 @@ Keep learning notes short and tied to the current feature.
 
 ---
 
-## Feature Planning Checklist
-
-Before implementation, confirm:
+## Checklist Before Implementation
 
 ```txt
 - The feature has a clear problem statement.
