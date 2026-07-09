@@ -2,10 +2,12 @@
 
 ## Purpose
 
-This directory contains on-demand guides for using the multi-agent template as both:
+This directory contains short, on-demand guide spines for using the multi-agent template as both:
 
 - a software delivery system;
 - a learning system for software engineering practice.
+
+Detailed fill-in documents live in `.claude/templates/`.
 
 These guides are intentionally **not imported by `.claude/CLAUDE.md`**. They should be read only when the current session needs them.
 
@@ -22,14 +24,27 @@ This protects token budget and context-window quality.
 
 ---
 
+## Related Templates
+
+| Template Directory | Use When |
+| --- | --- |
+| `.claude/templates/project/` | Creating `.specs/` foundation files for a new project. |
+| `.claude/templates/feature/` | Creating `context.md`, `spec.md`, `design.md`, `tasks.md`, and `validation.md` for one feature. |
+
+Open only the template needed for the current step. Do not load every template by default.
+
+---
+
 ## Relationship With Existing Files
 
 | File / Area | Responsibility |
 | --- | --- |
 | `.claude/CLAUDE.md` | Always-loaded orchestration kernel. Keep short. |
+| `AGENTS.md` | Thin Codex-compatible entrypoint. Do not duplicate `.claude/` in full. |
 | `.claude/prompts/bootstrap.md` | Session bootstrap policy for Claude Code, Codex, or other implementation models. |
 | `.claude/guides/project-from-zero.md` | Project inception guide used before coding a new project. |
 | `.claude/guides/feature-planning.md` | Feature planning guide used before implementing a feature. |
+| `.claude/templates/` | Fill-in templates loaded only when needed. |
 | `.claude/skills/tlc-spec-driven/` | Spec-driven workflow for specification, design, tasks, execution, and verification. |
 | `.claude/skills/orchestrating-agents/` | Issue, branch, PR, delegation, permission gates, and completion reporting. |
 
@@ -39,14 +54,15 @@ This protects token budget and context-window quality.
 
 Use guides only when needed.
 
-Do not preload all guides into every session.
+Do not preload all guides or templates into every session.
 
 Use this order:
 
 ```txt
 new session -> bootstrap.md
-new project -> project-from-zero.md
-new feature -> feature-planning.md
+Codex session -> AGENTS.md + bootstrap.md
+new project -> project-from-zero.md + selected project templates
+new feature -> feature-planning.md + selected feature templates
 feature execution -> tlc-spec-driven + specialist agents
 ```
 
