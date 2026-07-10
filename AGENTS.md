@@ -32,15 +32,17 @@ Rules:
 
 Read the smallest useful set of files.
 
-Start with:
+Always use this file as the Codex entrypoint.
+
+Read additional files only when the current task needs them:
 
 ```txt
-.claude/CLAUDE.md
-.claude/prompts/bootstrap.md
-README.md
+.claude/CLAUDE.md -> when Claude Code orchestration details, agent routing, or skill policy are needed
+.claude/prompts/bootstrap.md -> when starting, resuming, reconciling, or handing off a session
+README.md -> when a human-level repository overview is needed
 ```
 
-When `.specs/` exists, also read:
+When `.specs/` exists and the task depends on project state, read:
 
 ```txt
 .specs/STATE.md
@@ -61,9 +63,11 @@ For project inception or feature planning, read the matching guide spine and onl
 ```txt
 .claude/guides/project-from-zero.md
 .claude/guides/feature-planning.md
-.claude/templates/project/
-.claude/templates/feature/
+.claude/templates/project/[needed-template].md
+.claude/templates/feature/[needed-template].md
 ```
+
+Do not load entire guide, template, agent, or skill directories by default.
 
 ---
 
