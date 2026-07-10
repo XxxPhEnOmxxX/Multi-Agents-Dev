@@ -1,35 +1,51 @@
 # Multi-Agents Dev Template
 
-A reusable Claude Code multi-agent template for software development work.
+A reusable multi-agent development template for Claude Code, Codex, and other coding-agent workflows.
 
-This repository provides a generic agent and skill structure that can be cloned into different software projects, then adapted with project-specific rules, skills, and agents only when the real project needs them.
+This repository provides a generic agent, skill, prompt, guide, and template structure that can be cloned into different software projects, then adapted with project-specific rules only when the real project needs them.
 
 The template is intentionally domain-neutral. It is not tied to ERP systems, telecom systems, SaaS products, marketplaces, mobile apps, infrastructure vendors, automation platforms, or any specific company workflow.
 
+---
+
 ## Core Idea
 
-Use a small stable set of specialist agents and reusable skills to support software delivery without overloading Claude Code context.
+Use a small stable set of specialist agents and reusable skills to support software delivery without overloading model context.
 
 ```txt
-CLAUDE.md -> short orchestration kernel
+AGENTS.md -> thin Codex-compatible entrypoint
+.claude/CLAUDE.md -> short Claude Code orchestration kernel
 agents -> recurring specialist roles
 skills -> reusable practices and workflows
+prompts -> reusable session bootstrap policies
+guides -> short on-demand planning spines
+templates -> fill-in documents loaded only when needed
 reference docs -> detailed guidance loaded only when needed
 ```
 
-The template follows three principles:
+Principles:
 
-1. Keep the always-loaded context small.
+1. Keep always-loaded context small.
 2. Use agents for recurring responsibilities.
-3. Use skills for repeatable practices that can be invoked on demand.
+3. Use skills for repeatable practices invoked on demand.
+4. Use guides and templates for project/feature planning without bloating `CLAUDE.md`.
+5. Use `AGENTS.md` only as a thin Codex adapter, not a duplicate of `.claude/`.
+
+---
 
 ## Repository Structure
 
 ```txt
+AGENTS.md
 .claude/
   CLAUDE.md
   agents/
   skills/
+  prompts/
+  guides/
+  templates/
+    project/
+    feature/
   architecture-skill-matrix.md
   agent-skill-governance.md
   context-audit.md
@@ -38,13 +54,19 @@ The template follows three principles:
 
 | Path | Purpose |
 | --- | --- |
-| `.claude/CLAUDE.md` | Always-loaded orchestration kernel for Claude Code. Keep this short. |
+| `AGENTS.md` | Thin Codex-compatible repository entrypoint. Keep minimal. |
+| `.claude/CLAUDE.md` | Always-loaded orchestration kernel for Claude Code. Keep short. |
 | `.claude/agents/` | Specialist subagents with role prompts, tool permissions, and one preloaded primary skill. |
 | `.claude/skills/` | Reusable workflows, architecture practices, quality practices, and operational skills. |
+| `.claude/prompts/` | Reusable session bootstrap policies loaded only when needed. |
+| `.claude/guides/` | Short on-demand guides for project inception and feature planning. |
+| `.claude/templates/` | Fill-in project and feature templates opened only when needed. |
 | `.claude/architecture-skill-matrix.md` | Human-readable map of agents, preloaded skills, on-demand skills, and tool tiers. |
 | `.claude/agent-skill-governance.md` | Rules for deciding when to add an agent, skill, global rule, or reference document. |
 | `.claude/context-audit.md` | Documentation of context economy decisions and always-loaded vs on-demand content. |
 | `.claude/template-usage.md` | Detailed guide for cloning, adapting, and maintaining this template. |
+
+---
 
 ## Included Agents
 
@@ -58,6 +80,8 @@ The template keeps the number of agents stable. Add a new agent only when a proj
 | `security-engineer` | Defensive security review, threat modeling, auth, secrets, sensitive data, release risk. | Review/planning |
 | `qa-engineer` | Test strategy, acceptance criteria, CI diagnosis, regression analysis, release readiness. | Review/planning |
 | `devops-engineer` | Infrastructure, cloud/VPS/bare metal, containers, orchestration, CI/CD, networking, DNS/TLS, observability, backups, production ops. | Implementation |
+
+---
 
 ## Included Skills
 
@@ -82,16 +106,18 @@ Each agent preloads only one primary operational skill. Architecture, practice, 
 | `testing-strategy` | Tests for domain rules, use cases, handlers, adapters, security, regressions. |
 | `tlc-spec-driven` | Spec-driven feature delivery with requirements, design, task breakdown, gates, `.specs/` continuity, independent validation, and lessons. |
 
-## Tool Permission Model
+---
 
-The template separates review/planning agents from implementation agents.
+## Tool Permission Model
 
 | Tier | Agents | Default behavior |
 | --- | --- | --- |
 | Review/planning | `software-architect`, `security-engineer`, `qa-engineer` | Inspect, test, review, and recommend without directly editing files. |
 | Implementation | `backend-specialist`, `frontend-specialist`, `devops-engineer` | Apply scoped changes after planning and delegation. |
 
-Review/planning agents do not include `Edit`, `MultiEdit`, or `Write` by default. This keeps the base template safer and encourages implementation to happen through executor agents.
+Review/planning agents do not include `Edit`, `MultiEdit`, or `Write` by default. This keeps the base template safer and encourages implementation through executor agents.
+
+---
 
 ## Recommended Workflow
 
@@ -112,21 +138,29 @@ Recommended behavior:
 7. Keep evidence in the issue or PR.
 8. Do not merge without validation.
 
+---
+
 ## How to Use This Template
 
-1. Clone or copy this repository's `.claude/` directory into a software project.
-2. Keep the base agents unless the project clearly needs a new recurring role.
-3. Keep `.claude/CLAUDE.md` short and global.
-4. Add project-specific skills under `.claude/skills/` only after the project domain is known.
-5. Add project-specific reference documents instead of bloating `CLAUDE.md`.
-6. Update `.claude/context-audit.md` when changing always-loaded context, agent topology, or skill preload policy.
-7. Use `.claude/agent-skill-governance.md` before adding new agents or changing permissions.
+1. Copy the `.claude/` directory into a target project.
+2. Copy `AGENTS.md` only when Codex-compatible workflows are needed.
+3. Keep the base agents unless the project clearly needs a new recurring role.
+4. Keep `.claude/CLAUDE.md` short and global.
+5. Use `.claude/prompts/bootstrap.md` to start/resume model sessions.
+6. Use `.claude/guides/project-from-zero.md` when starting a project from zero.
+7. Use `.claude/guides/feature-planning.md` when planning one feature.
+8. Use `.claude/templates/` to create project and feature spec files without loading long guides.
+9. Add project-specific skills only after the project domain is known.
+10. Update `.claude/context-audit.md` when changing always-loaded context, agent topology, or skill preload policy.
+11. Use `.claude/agent-skill-governance.md` before adding new agents or changing permissions.
 
 See `.claude/template-usage.md` for the full guide.
 
+---
+
 ## What Belongs in the Base Template
 
-Good candidates for the base template:
+Good candidates:
 
 - universal software engineering roles;
 - reusable architecture practices;
@@ -134,9 +168,10 @@ Good candidates for the base template:
 - generic GitHub issue and PR workflow;
 - generic context economy rules;
 - generic agent and skill governance;
-- stack-neutral feature delivery workflows that remain on demand.
+- stack-neutral feature delivery workflows that remain on demand;
+- small guide spines and reusable templates that remain on demand.
 
-Poor candidates for the base template:
+Poor candidates:
 
 - ERP-specific instructions;
 - telecom-specific instructions;
@@ -150,29 +185,21 @@ Poor candidates for the base template:
 
 Project-specific knowledge should be added after cloning the template into a real project.
 
+---
+
 ## When to Add a Skill
 
 Add a skill when the behavior is repeatable and can be reused by one or more agents.
 
-Good examples:
-
-```txt
-payment-provider-integration
-mobile-release-checklist
-accessibility-review
-legacy-migration-plan
-observability-review
-kubernetes-release-operations
-n8n-automation-operations
-```
-
 Avoid adding a skill when the behavior is only a one-time note or a project-specific instruction better stored in documentation.
+
+---
 
 ## When to Add an Agent
 
 Add an agent only when there is a recurring role with distinct responsibility, tool needs, and output expectations.
 
-Good examples in a project clone:
+Examples in a project clone:
 
 ```txt
 mobile-specialist
@@ -183,34 +210,9 @@ ai-rag-engineer
 platform-engineer
 ```
 
-Avoid adding an agent when a skill or short instruction is enough.
+Avoid adding an agent when a skill, guide, template, or short instruction is enough.
 
-## How to Adapt CLAUDE.md
-
-Use `.claude/CLAUDE.md` only for rules that must apply to every task.
-
-Good additions:
-
-```txt
-- Required issue/PR workflow.
-- Safety gates.
-- Mandatory validation style.
-- Project-wide forbidden operations.
-- Short routing map.
-```
-
-Avoid adding:
-
-```txt
-- Long coding standards.
-- Full API documentation.
-- Domain manuals.
-- Large examples.
-- Vendor-specific payloads.
-- Environment-specific secrets or credentials.
-```
-
-Put detailed guidance in skills or reference docs instead.
+---
 
 ## Maintenance Checklist
 
@@ -222,10 +224,12 @@ Before merging changes to this template, check:
 - Does any agent preload more than one primary skill?
 - Did tool permissions become broader than necessary?
 - Should this be a skill instead of an agent?
-- Should this be a reference doc instead of CLAUDE.md content?
+- Should this be a guide/template/reference instead of CLAUDE.md content?
 - Are project-specific examples avoided or clearly marked?
 - Is the PR validation evidence documented?
 ```
+
+---
 
 ## Current Status
 
